@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cover %}
+<div id="carouselExampleCaptions" class="carousel slide">
+	<div class="carousel-indicators">
+	  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+	  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+	  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	</div>
+	<div class="carousel-inner">
+	  <div class="carousel-item active">
+		<img src="{% static 'images/image-01.png' %}" class="d-block w-100" alt="...">
+		<div class="carousel-caption d-none d-md-block">
+		  <h5>First slide label</h5>
+		  <p>Some representative placeholder content for the first slide.</p>
+		</div>
+	  </div>
+	  <div class="carousel-item">
+		<img src="{% static 'images/image-01.png' %}" class="d-block w-100" alt="...">
+		<div class="carousel-caption d-none d-md-block">
+		  <h5>Second slide label</h5>
+		  <p>Some representative placeholder content for the second slide.</p>
+		</div>
+	  </div>
+	  <div class="carousel-item">
+		<img src="{% static 'images/image-01.png' %}" class="d-block w-100" alt="...">
+		<div class="carousel-caption d-none d-md-block">
+		  <h5>Third slide label</h5>
+		  <p>Some representative placeholder content for the third slide.</p>
+		</div>
+	  </div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+	  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	  <span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+	  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	  <span class="visually-hidden">Next</span>
+	</button>
+  </div>
+{% endblock cover %}
+{% block main %}
+<!-- About Section -->
+<section>
+	<div class="p-5 mb-4 rounded-3">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold text-center">CEMS - Event Management Simplified</h1>
+		</div>
+	</div>
+	<div class="row justify-content-evenly align-items-center h-100 mx-0">
+		<div class="col-lg-7">
+			<p class="lead text-muted p-lg-5 p-1">
+				CEMS is a web-based event management system designed for use by universities and colleges. It
+				allows
+				event organizers to easily create and manage events, track attendance, and generate reports. It
+				also
+				allows students to find and rsvp for events and get reminders.
+			</p>
+			<div class="px-5">
+				<button class="btn btn-primary">
+					Join Us <i class="fa fa-arrow-right mx-1 " aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+		<div class="col-lg-5"><img src="{% static 'images/image-01.png' %}" class="img-fluid rounded" alt="CEMS">
+		</div>
+	</div>
+</section>
+<!-- Services section -->
+<section>
+	<div class="p-5 mb-4 bg-light rounded-3 mt-5">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold text-center">Services</h1>
+		</div>
+	</div>
+	<div class="row mx-0 p-3 text-center h-100 g-5">
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card border-0">
+				<div class="card-header shadow-lg">
+					<img src="{% static 'images/image-08.png' %}" alt="Easy Event Creation" class="img img-fluid"
+						style="height: 200px;">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title" style="color: #771414e1;">Easy Event Creation</h5>
+					<p class="card-text">CEMS simplifies the event creation process, making it easy for organizers
+						to create and manage events.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card border-0">
+				<div class="card-header shadow-lg">
+					<img src="{% static 'images/image-13.png' %}" alt="Attendance Tracking" class="img img-fluid"
+						style="height: 200px;">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title" style="color: #771414e1;">Attendance Tracking</h5>
+					<p class="card-text">CEMS allows organizers to track attendance and generate reports on event
+						participation.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card border-0">
+				<div class="card-header shadow-lg">
+					<img src="{% static 'images/image-16.png' %}" alt="Student Engagement" class="img img-fluid"
+						style="height: 200px;">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title" style="color: #771414e1;">Student Engagement</h5>
+					<p class="card-text">CEMS helps students find and RSVP for events and receive reminders, leading
+						to increased student engagement.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<a href="#" class="btn btn-dark btn-outline-light my-2 shadow">Add Event</a>
+	</div>
+</section>
+<!-- Upcoming section -->
+<section>
+	<div class="p-5 mb-4 bg-light rounded-3 mt-5">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold text-center">Event Calendar <span style="color: #771414e1;"><i
+						class="fa fa-calendar mx-2" aria-hidden="true"></i></span> </h1>
+			<p class="lead text-center">
+				Check out the top 10 upcoming events below
+			</p>
+		</div>
+	</div>
+	<div class="owl-carousel owl-theme">
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<a href="#" class="btn btn-dark btn-outline-light my-2 shadow">Go To Events</a>
+	</div>
+</section>
+
+{% endblock main %}
