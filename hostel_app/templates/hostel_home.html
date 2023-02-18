@@ -49,9 +49,12 @@
         <section data-aos="zoom-in-down" data-aos-duration="400" data-aos-once="true" class="min-vh-100"
             style="padding-top: 30px;padding-bottom: 30px;min-height: 50vh !important;">
             <div class="container" style="min-width: 90vw;padding: 0;width: 100%;">
+                {% if hostels %}
                 <div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
                     class="owl-slider" style="width: 100%;">
                     <div id="carousel" class="owl-carousel">
+
+
 
                         {% for hostel in hostels %}
                         <div class="item height-350" style="height: auto;padding: 10px;">
@@ -92,9 +95,15 @@
                             </div>
                         </div>
                         {% endfor %}
-
                     </div>
                 </div>
+                {% else %}
+                <div class="p-5 mb-4 ">
+                    <div class="container-fluid py-5">
+                        <h1 class="display-5 fw-bold">No Hostels in the system</h1>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </section>
     </div>

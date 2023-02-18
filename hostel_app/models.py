@@ -23,6 +23,7 @@ class Hostel(models.Model):
     class Meta:
         verbose_name = 'Hostel'
         verbose_name_plural = 'Hostels'
+        ordering = ['name']
 
 
 class Category(models.Model):

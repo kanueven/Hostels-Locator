@@ -4,7 +4,7 @@
 	id="about"
 	style="padding: 200px 0 0"
 >
-	<h2>Elites Hostel</h2>
+	<h2>{{hostel}}</h2>
 	<div class="container">
 		<div
 			class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center"
@@ -16,24 +16,24 @@
 					<div class="col-xl-12">
 						<h5 class="text-primary">Address</h5>
 						<div
-							class="d-flex justify-content-between"
+							class="d-flex justify-content-evenly"
 							style="margin: 20px 0px"
 						>
 							<i
 								class="fa fa-location-arrow"
 								style="font-size: 39px"
 							></i
-							><strong>Ongata Rongai</strong>
+							><strong>{{hostel.location}}</strong>
 						</div>
 						<div
-							class="d-flex justify-content-between"
+							class="d-flex justify-content-evenly"
 							style="margin: 20px 0px"
 						>
 							<i
 								class="fa fa-street-view"
 								style="font-size: 39px"
 							></i
-							><b>Near maasai lodge&nbsp;</b>
+							><b>{{hostel.address}}&nbsp;</b>
 						</div>
 					</div>
 					<div class="col-xl-12">
@@ -145,7 +145,7 @@
 <section
 	class="text-center download-section content-section"
 	id="hostels"
-	style="background-image: url('assets/img/downloads-bg.jpg'); padding: 0"
+	style="background-image: url('{% static 'assets/img/downloads-bg.jpg' %}'); padding: 0"
 ></section>
 <div
 	class="container d-xl-flex justify-content-xl-center align-items-xl-center"

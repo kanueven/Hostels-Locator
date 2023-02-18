@@ -12,7 +12,7 @@ from .models import Hostel, Location
 def hostel_home(request):
     context = {}
     context['hostels'] = Hostel.objects.all()
-    return render(request, 'hostel_home.html',context)
+    return render(request, 'hostel_home.html', context)
 
 
 @login_required(login_url='login')
@@ -36,10 +36,26 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
-
 class HostelListView(generic.ListView):
     model = Hostel
     template_name = "hostel_list.html"
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get("query")
+        if query:
+            context["query"] = query
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get("query")
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+            
+        return queryset
+    
 
 
 class HostelDetailView(generic.DetailView):

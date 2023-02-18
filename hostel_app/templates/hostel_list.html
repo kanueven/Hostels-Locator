@@ -1,198 +1,106 @@
-{% extends 'hostel_base.html' %}
-{% load static %}
-
-{% block main %}
+{% extends 'hostel_base.html' %} {% load static %} {% block main %}
 <section class="text-center download-section content-section" id="hostels"
     style="background-image: url('{% static 'assets/img/downloads-bg.jpg' %}');padding: 0;height: 412px;">
-    <div class="row align-items-end mb-5" style="height: 100%;width: 100%;">
+    <div class="row align-items-end mb-5" style="height: 100%; width: 100%">
         <div class="col-md-8 col-xl-6 text-center d-flex flex-column-reverse align-items-center mx-auto"
-            style="height: 50vh;">
-            <h2 style="padding: 30px 0;">Find a hostel near you</h2>
-            <p class="text-light" style="padding: 0;">Explore our top-rated hostels, handpicked by fellow travelers.
-                Find the perfect combination of location, value, and quality amenities. Book now for an unforgettable
-                experience</p>
+            style="height: 50vh">
+            <h2 style="padding: 30px 0">Find a hostel near you</h2>
+            <p class="text-light" style="padding: 0">
+                Explore our top-rated hostels, handpicked by fellow travelers.
+                Find the perfect combination of location, value, and quality
+                amenities. Book now for an unforgettable experience
+            </p>
         </div>
     </div>
 </section>
-<div class="container" id="hosts" style="margin-top: 100px;">
+<div class="container" id="hosts" style="margin-top: 100px">
     <div class="row d-flex justify-content-around">
         <div class="col-md-6 col-lg-6 offset-lg-0">
-            <div class="input-group border rounded"><span class="input-group-text"><i
-                        class="fa fa-search"></i></span><input class="form-control" type="text"><button
-                    class="btn btn-primary" type="button">Search</button></div>
+           <form method="get">
+            <div class="input-group border rounded">
+                <span class="input-group-text"><i class="fa fa-search"></i></span><input class="form-control" name='query' placeholder="Search hostel name" value="{{query}}"  type="text" /><button
+                    class="btn btn-primary" type="submit">
+                    Search
+                </button>
+            </div>
+           </form>
         </div>
     </div>
 </div>
-<section class="text-center content-section" id="contact" style="padding: 0;">
-    <div class="container py-4 py-xl-5" style="background: url(&quot;{% static 'assets/img/img12.png' %}&quot;);">
+<section class="text-center content-section" id="contact" style="padding: 0">
+    <div class="container py-4 py-xl-5" style="background: url('{% static 'assets/img/img12.png' %}')">
         <div class="row mb-5">
+            {% if not page_obj %}
             <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <h2>Hostels</h2>
-                <p>Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui
-                    eget ultrices.</p>
+                <h2>No Hostels found in the system</h2>
+                <p>
+                    Be the first to add one, simply {% if not user.is_authenticated %} login and {% endif %} naviagate to
+                    the dashboard
+                </p>
             </div>
+            {% endif %}
         </div>
-        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+            {% if page_obj%} 
+            {% for hostel in page_obj %}
             <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
+                <div class="card rounded h-100">
+                    <img class="card-img-top w-100 d-block fit-cover" style="height: 200px"
+                        src="{{hostel.cover.url}}" />
+                    <div class="card-body text-dark p-4" style="border-style: none">
+                        <h4 class="card-title">{{hostel.name}}</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <i class="fa fa-home" style="font-size: 53px"></i>
                             <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
+                                <p class="fw-bold mb-0">{{hostel.location}}</p>
+                                <p class="text-muted mb-0">
+                                    {{hostel.address}}
+                                </p>
                             </div>
-                        </div><a class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel"
-                            type="button" style="margin: 17px;" href="{% url 'hostel-detail' 1%}">View</a>
+                        </div>
+                        <a class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel" type="button"
+                            style="margin: 17px" href="{% url 'hostel-detail' pk=hostel.pk %}">View</a>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-8"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-7"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-6"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-5"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-4"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark border-0 p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-3"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-2"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;"
-                        src="{% static 'assets/img/intro-bg.jpg' %}">
-                    <div class="card-body text-dark p-4" style="border-style: none;">
-                        <h4 class="card-title">Elites Hostel</h4>
-                        <div class="d-flex justify-content-between align-items-center"><i class="fa fa-home"
-                                style="font-size: 53px;"></i>
-                            <div>
-                                <p class="fw-bold mb-0">Ongata Rongai</p>
-                                <p class="text-muted mb-0">Next to Tumaini Mall</p>
-                            </div>
-                        </div><button class="btn btn-warning" data-bss-hover-animate="pulse" id="btnHostel-1"
-                            type="button" style="margin: 17px;">View</button>
-                    </div>
-                </div>
-            </div>
+            {% endfor %} {% endif %}
         </div>
-        <div class="d-xl-flex justify-content-xl-center align-items-xl-center" style="padding: 20px 0;">
+
+        {% if page_obj %}
+        <div class="d-xl-flex justify-content-xl-center align-items-xl-center" style="padding: 20px 0">
             <nav>
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span
-                                aria-hidden="true">«</span></a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span
-                                aria-hidden="true">»</span></a></li>
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&query={{query}}"
+                            aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% endif %} {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <a class="page-link" href="#?query={{query}}">{{ num }} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}&query={{query}}">{{ num }}</a>
+                        </li>
+                        {% endif %} {% endfor %} {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&query={{query}}" aria-label="Next"><span
+                                    aria-hidden="true">&raquo;</span></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                        </li>
+                        {% endif %}
                 </ul>
             </nav>
         </div>
+        {% endif %}
     </div>
 </section>
 {% endblock main %}
