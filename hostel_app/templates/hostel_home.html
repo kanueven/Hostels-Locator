@@ -1,0 +1,239 @@
+{% extends 'hostel_base.html' %}
+{% load static %}
+
+{% block main %}
+<header class="masthead" style="background-image: url('{% static 'assets/img/intro-bg.jpg' %}');">
+    <div class="intro-body">
+        <h1 class="text-center text-black-50 brand-heading" style="--bs-body-font-weight: normal;">Hostel Locator</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <p class="intro-text">Where adventure meets affordability. Find your perfect hostel today.Discover
+                        the world, one hostel at a time</p><a
+                        class="btn btn-link d-inline-flex justify-content-center align-items-center align-content-center btn-circle"
+                        role="button" href="#about"><i class="fa fa-angle-double-down animated"
+                            style="font-size: 25px;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="text-center content-section" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>Hostel locator</h2>
+                <p>Welcome to Hostel Locator, the ultimate tool for finding and booking hostels in your desired
+                    location. Our mission is to make travel easy and accessible for everyone, by providing a
+                    user-friendly platform that connects travelers with high-quality hostels around the world.</p>
+                <p>With Hostel Locator, you can search for hostels based on your preferred location, date, price, and
+                    other criteria. Our comprehensive database of hostels includes a range of options to suit every
+                    budget and travel style, from budget-friendly dorms to luxurious private rooms.</p>
+                <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with SASS and LESS files for
+                    easy customization!</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="text-center download-section content-section" id="hostels"
+    style="background-image: url('{% static 'assets/img/downloads-bg.jpg' %}');padding: 0;">
+    <div class="container py-4 py-xl-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2>Popular hostels</h2>
+                <p class="text-light">Explore our top-rated hostels, handpicked by fellow travelers. Find the perfect
+                    combination of location, value, and quality amenities. Book now for an unforgettable experience</p>
+            </div>
+        </div>
+        <section></section>
+        <section data-aos="zoom-in-down" data-aos-duration="400" data-aos-once="true" class="min-vh-100"
+            style="padding-top: 30px;padding-bottom: 30px;min-height: 50vh !important;">
+            <div class="container" style="min-width: 90vw;padding: 0;width: 100%;">
+                <div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
+                    class="owl-slider" style="width: 100%;">
+                    <div id="carousel" class="owl-carousel">
+                        <div class="item height-350" style="height: auto;padding: 10px;">
+                            <div class="col-md-4" style="width: 100%;">
+                                <div class="blog-card blog-card-blog">
+                                    <div class="blog-card-image"><a href="#"><img class="img-fluid img"
+                                                src="{% static 'assets/img/NBA%20YoungBoy.png' %}"></a>
+                                        <div class="ripple-cont"></div>
+                                    </div>
+                                    <div class="blog-table">
+                                        <p class="blog-card-description"
+                                            style="font-family: 'Playfair Display', serif;">Elite Hostel</p><button
+                                            class="btn btn-primary btn-lg btn-default" type="button"><span
+                                                class="network-name">&nbsp;Peek inside</span></button>
+                                        <hr>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-location-arrow"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Ongata Rongai</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-street-view"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Near Olepusi road</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="far fa-star"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>4.6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item height-350" style="height: auto;padding: 10px;">
+                            <div class="col-md-4" style="width: 100%;">
+                                <div class="blog-card blog-card-blog">
+                                    <div class="blog-card-image"><a href="#"><img class="img-fluid img"
+                                                src="{% static 'assets/img/NBA%20YoungBoy.png' %}"></a>
+                                        <div class="ripple-cont"></div>
+                                    </div>
+                                    <div class="blog-table">
+                                        <p class="blog-card-description"
+                                            style="font-family: 'Playfair Display', serif;">Elite Hostel</p><button
+                                            class="btn btn-primary btn-lg btn-default" type="button"><span
+                                                class="network-name">&nbsp;Peek inside</span></button>
+                                        <hr>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-location-arrow"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Ongata Rongai</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-street-view"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Near Olepusi road</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="far fa-star"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>4.6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item height-350" style="height: auto;padding: 10px;">
+                            <div class="col-md-4" style="width: 100%;">
+                                <div class="blog-card blog-card-blog">
+                                    <div class="blog-card-image"><a href="#"><img class="img-fluid img"
+                                                src="{% static 'assets/img/NBA%20YoungBoy.png' %}"></a>
+                                        <div class="ripple-cont"></div>
+                                    </div>
+                                    <div class="blog-table">
+                                        <p class="blog-card-description"
+                                            style="font-family: 'Playfair Display', serif;">Elite Hostel</p><button
+                                            class="btn btn-primary btn-lg btn-default" type="button"><span
+                                                class="network-name">&nbsp;Peek inside</span></button>
+                                        <hr>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-location-arrow"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Ongata Rongai</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-street-view"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Near Olepusi road</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="far fa-star"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>4.6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item height-350" style="height: auto;padding: 10px;">
+                            <div class="col-md-4" style="width: 100%;">
+                                <div class="blog-card blog-card-blog">
+                                    <div class="blog-card-image"><a href="#"><img class="img-fluid img"
+                                                src="{% static 'assets/img/NBA%20YoungBoy.png' %}"></a>
+                                        <div class="ripple-cont"></div>
+                                    </div>
+                                    <div class="blog-table">
+                                        <p class="blog-card-description"
+                                            style="font-family: 'Playfair Display', serif;">Elite Hostel</p><button
+                                            class="btn btn-primary btn-lg btn-default" type="button"><span
+                                                class="network-name">&nbsp;Peek inside</span></button>
+                                        <hr>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-location-arrow"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Ongata Rongai</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="fas fa-street-view"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>Near Olepusi road</span></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between ftr">
+                                            <div class="author"><a href="https://github.com/DesignofCp"
+                                                    target="_blank"><i class="far fa-star"
+                                                        style="font-size: 28px;"></i></a></div>
+                                            <div class="stats"><span>4.6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<div class="container" id="hosts" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 style="font-size: 52.36px;font-weight: 900;margin-top: 58px;">Hosts</h1>
+            <p style="font-weight: bold;font-size: 18px;margin-top: 12px;">Are you a hostel owner looking to showcase
+                your property to a global audience of travelers? Hostel Locator makes it easy to manage your hostel and
+                reach new guests. With our user-friendly platform, you can add and edit information about your hostel,
+                manage bookings, and connect with guests directly. Our analytics tools also provide valuable insights
+                into your hostel's performance. Join our community of hostel owners today and take your business to the
+                next level!</p>
+            <div class="btn-group" role="group"><button class="btn btn-primary" type="button">Register with
+                    us</button><button class="btn btn-success" type="button">Host Login&nbsp;</button></div>
+            <div style="margin-top: 44px;">
+                <p>Working with the best</p><img src="{% static 'assets/img/kickstarter.png' %}" style="margin-right: 19px;"><img
+                    src="{% static 'assets/img/twitter.png' %}" style="margin-right: 19px;"><img src="{% static 'assets/img/pinterest.png' %}">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 offset-lg-0"><img src="{% static 'assets/img/img2.png' %}" style="width: 447px;"></div>
+    </div>
+</div>
+<div class="container" id="hosts-1" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 offset-lg-0"><img src="{% static 'assets/img/img5.png' %}" style="width: 447px;"></div>
+        <div class="col-md-6">
+            <h1 style="font-size: 52.36px;font-weight: 900;margin-top: 58px;">Guests</h1>
+            <p style="font-weight: bold;font-size: 18px;margin-top: 12px;">At Hostel Locator, we believe that every
+                guest deserves a comfortable and enjoyable stay. That's why we've carefully curated a selection of
+                hostels that offer top-notch amenities, prime locations, and exceptional service. Our platform makes it
+                easy for you to find and book the perfect hostel for your needs, whether you're traveling solo, with
+                friends, or with family. From budget-friendly dorms to private rooms with ensuite bathrooms, we've got
+                something for everyone. Book your stay today and experience the best that the hostel world has to offer
+            </p>
+            <div class="btn-group" role="group"><button class="btn btn-light"
+                    type="button">Register&nbsp;</button><button class="btn btn-info"
+                    type="button">&nbsp;Login&nbsp;</button></div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

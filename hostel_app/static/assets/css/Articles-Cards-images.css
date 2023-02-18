@@ -1,0 +1,15 @@
+.fit-cover {
+  object-fit: cover;
+}
+
+.btn {
+  transform-style: preserve-3d;
+  transition: ease-in-out;
+}
+
+#btnHostel:hover {
+  background: var(--bs-pink);
+  color: #ffffff;
+  font-weight: 400;
+}
+
