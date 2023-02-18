@@ -46,6 +46,28 @@ python manage.py runserver
 
 5. Open your web browser and navigate to `http://localhost:8000/` to view the application.
 
+## Testing(Optional)
+
+To test the functionality of the application do the following:
+
+1. Create a superuser account and another normal account to work as tenant and guests for the dummy data to be generated:
+
+```bash
+git clone https://github.com/kanueven/Hostels-Locator.git
+cd Hostels-Locator
+```
+
+
+2. Run the command and enter the number of hostels to create:
+
+```bash
+python create_hostels.py
+```
+
+
+3. Wait fo the process to complete then navigate to the homepage on the browser:
+
+
 ## Contributing
 
 We welcome contributions from the community! If you'd like to contribute to the project, please submit a pull request or open an issue on the project's GitHub page.
