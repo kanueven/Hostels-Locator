@@ -16,12 +16,6 @@ fakegen = Faker()
 
 cities = ['Kisumu', ' Nairobi', 'Nakuru', 'Mombasa', 'Malindi', 'Kakamega','Busia','Bungoma']
 
-                   
-
-def run_generator(generator):
-    for i in generator:
-        return i
-
 def get_location():
     return random.choice(cities)
 

@@ -50,11 +50,10 @@ python manage.py runserver
 
 To test the functionality of the application do the following:
 
-1. Create a superuser account and another normal account to work as tenant and guests for the dummy data to be generated:
+1. Create a superuser account to work as the host account for the dummy data to be generated:
 
 ```bash
-git clone https://github.com/kanueven/Hostels-Locator.git
-cd Hostels-Locator
+python manage.py createsuperuser
 ```
 
 
