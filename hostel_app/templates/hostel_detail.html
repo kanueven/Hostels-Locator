@@ -1,64 +1,205 @@
-{% extends 'hostel_base.html' %}
-{% load static %}
+{% extends 'hostel_base.html' %} {% load static %} {% block main %}
+<section
+	class="text-center content-section"
+	id="about"
+	style="padding: 200px 0 0"
+>
+	<h2>Elites Hostel</h2>
+	<div class="container">
+		<div
+			class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center"
+		>
+			<div class="col-lg-8 col-xl-3 mx-auto">
+				<div
+					class="row gy-2 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center"
+				>
+					<div class="col-xl-12">
+						<h5 class="text-primary">Address</h5>
+						<div
+							class="d-flex justify-content-between"
+							style="margin: 20px 0px"
+						>
+							<i
+								class="fa fa-location-arrow"
+								style="font-size: 39px"
+							></i
+							><strong>Ongata Rongai</strong>
+						</div>
+						<div
+							class="d-flex justify-content-between"
+							style="margin: 20px 0px"
+						>
+							<i
+								class="fa fa-street-view"
+								style="font-size: 39px"
+							></i
+							><b>Near maasai lodge&nbsp;</b>
+						</div>
+					</div>
+					<div class="col-xl-12">
+						<h5 class="text-primary">Services</h5>
+						<div
+							class="justify-content-between"
+							style="margin: 20px 0px"
+						>
+							<button
+								class="btn btn-dark border rounded"
+								type="button"
+								style="padding: 10px 20px; margin: 5px"
+							>
+								WIFI</button
+							><button
+								class="btn btn-dark border rounded"
+								type="button"
+								style="padding: 10px 20px; margin: 10px"
+							>
+								parking</button
+							><button
+								class="btn btn-dark border rounded"
+								type="button"
+								style="padding: 10px 20px; margin: 10px"
+							>
+								Transport</button
+							><button
+								class="btn btn-dark border rounded"
+								type="button"
+								style="padding: 10px 20px; margin: 10px"
+							>
+								security
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8 col-xl-8 mx-auto">
+				<div
+					class="carousel slide carousel-dark"
+					data-bs-ride="carousel"
+					data-bs-interval="3000"
+					id="carousel-1"
+					style="height: 600px"
+				>
+					<div class="carousel-inner h-100">
+						<div class="carousel-item active h-100">
+							<img
+								class="w-100 d-block position-absolute h-100 fit-cover"
+								src="{% static 'assets/img/intro-bg.jpg' %}"
+								alt="Slide Image"
+								style="z-index: -1"
+							/>
+						</div>
+						<div class="carousel-item h-100">
+							<img
+								class="w-100 d-block position-absolute h-100 fit-cover"
+								src="{% static 'assets/img/img5.png' %}"
+								alt="Slide Image"
+								style="z-index: -1"
+							/>
+						</div>
+						<div class="carousel-item h-100">
+							<img
+								class="w-100 d-block position-absolute h-100 fit-cover"
+								src="{% static 'assets/img/img2.png' %}"
+								alt="Slide Image"
+								style="z-index: -1"
+							/>
+						</div>
+					</div>
+					<div>
+						<a
+							class="carousel-control-prev"
+							href="#carousel-1"
+							role="button"
+							data-bs-slide="prev"
+							><span class="carousel-control-prev-icon"></span
+							><span class="visually-hidden">Previous</span></a
+						><a
+							class="carousel-control-next"
+							href="#carousel-1"
+							role="button"
+							data-bs-slide="next"
+							><span class="carousel-control-next-icon"></span
+							><span class="visually-hidden">Next</span></a
+						>
+					</div>
+					<ol class="carousel-indicators">
+						<li
+							data-bs-target="#carousel-1"
+							data-bs-slide-to="0"
+							class="active"
+						></li>
+						<li
+							data-bs-target="#carousel-1"
+							data-bs-slide-to="1"
+						></li>
+						<li
+							data-bs-target="#carousel-1"
+							data-bs-slide-to="2"
+						></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section
+	class="text-center download-section content-section"
+	id="hostels"
+	style="background-image: url('assets/img/downloads-bg.jpg'); padding: 0"
+></section>
+<div
+	class="container d-xl-flex justify-content-xl-center align-items-xl-center"
+	id="hosts"
+	style="margin-top: 100px"
+>
+	<div class="col-md-6 text-center">
+		<p style="font-weight: bold; font-size: 18px; margin-top: 12px">
+			Are you a hostel owner looking to showcase your property to a global
+			audience of travelers? Hostel Locator makes it easy to manage your
+			hostel and reach new guests. With our user-friendly platform, you
+			can add and edit information about your hostel, manage bookings, and
+			connect with guests directly. Our analytics tools also provide
+			valuable insights into your hostel's performance. Join our community
+			of hostel owners today and take your business to the next level!
+		</p>
+		<div class="btn-group" role="group">
+			<button class="btn btn-outline-primary" type="button">Book</button
+			><button class="btn btn-success" type="button">
+				Leave a review
+			</button>
+		</div>
+	</div>
+</div>
 
-{% block main %}
-    <section class="text-center content-section" id="about" style="padding: 200px 0 0;">
-        <h2>Elites Hostel</h2>
-        <div class="container">
-            <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center">
-                <div class="col-lg-8 col-xl-3 mx-auto">
-                    <div class="row gy-2 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center">
-                        <div class="col-xl-12">
-                            <h5 class="text-primary">Address</h5>
-                            <div class="d-flex justify-content-between" style="margin: 20px 0px;"><i class="fa fa-location-arrow" style="font-size: 39px;"></i><strong>Ongata Rongai</strong></div>
-                            <div class="d-flex justify-content-between" style="margin: 20px 0px;"><i class="fa fa-street-view" style="font-size: 39px;"></i><b>Near maasai lodge&nbsp;</b></div>
-                        </div>
-                        <div class="col-xl-12">
-                            <h5 class="text-primary">Services</h5>
-                            <div class="justify-content-between" style="margin: 20px 0px;"><button class="btn btn-dark border rounded" type="button" style="padding: 10px 20px;margin: 5px;">WIFI</button><button class="btn btn-dark border rounded" type="button" style="padding: 10px 20px;margin: 10px;">parking</button><button class="btn btn-dark border rounded" type="button" style="padding: 10px 20px;margin: 10px;">Transport</button><button class="btn btn-dark border rounded" type="button" style="padding: 10px 20px;margin: 10px;">security</button></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 col-xl-8 mx-auto">
-                    <div class="carousel slide carousel-dark" data-bs-ride="carousel" data-bs-interval="3000" id="carousel-1" style="height: 600px;">
-                        <div class="carousel-inner h-100">
-                            <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="assets/img/intro-bg.jpg" alt="Slide Image" style="z-index: -1;"></div>
-                            <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="assets/img/img5.png" alt="Slide Image" style="z-index: -1;"></div>
-                            <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="assets/img/img2.png" alt="Slide Image" style="z-index: -1;"></div>
-                        </div>
-                        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#carousel-1" data-bs-slide-to="2"></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="text-center download-section content-section" id="hostels" style="background-image: url('assets/img/downloads-bg.jpg');padding: 0;"></section>
-    <div class="container d-xl-flex justify-content-xl-center align-items-xl-center" id="hosts" style="margin-top: 100px;">
-        <div class="col-md-6 text-center">
-            <p style="font-weight: bold;font-size: 18px;margin-top: 12px;">Are you a hostel owner looking to showcase your property to a global audience of travelers? Hostel Locator makes it easy to manage your hostel and reach new guests. With our user-friendly platform, you can add and edit information about your hostel, manage bookings, and connect with guests directly. Our analytics tools also provide valuable insights into your hostel's performance. Join our community of hostel owners today and take your business to the next level!</p>
-            <div class="btn-group" role="group"><button class="btn btn-outline-primary" type="button">Book</button><button class="btn btn-success" type="button">Leave a review</button></div>
-        </div>
-    </div>
-    <section class="text-center content-section" id="contact" style="height: 0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>Contact Host</h2>
-                    <p class="text-light" style="padding: 10px 0;">For more information on the hostel kindly contact the owner using method given below. Remember to keep things proffesional.</p>
-                    <ul class="list-inline banner-social-buttons">
-                        <li class="list-inline-item">&nbsp;</li>
-                        <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button" style="width: 214px;"><i class="fa fa-whatsapp fa-fw"></i><span class="network-name">&nbsp;Whatsapp</span></button></li>
-                        <li class="list-inline-item">&nbsp;</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+{% endblock main %} 
 
-    {% endblock main %}
-        
+{% block contact %}
+<section class="text-center content-section" id="contact" style="height: 0">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+				<h2>Contact Host</h2>
+				<p class="text-light" style="padding: 10px 0">
+					For more information on the hostel kindly contact the owner
+					using method given below. Remember to keep things
+					proffesional.
+				</p>
+				<ul class="list-inline banner-social-buttons">
+					<li class="list-inline-item">&nbsp;</li>
+					<li class="list-inline-item">
+						&nbsp;<button
+							class="btn btn-primary btn-lg btn-default"
+							type="button"
+							style="width: 214px"
+						>
+							<i class="fa fa-whatsapp fa-fw"></i
+							><span class="network-name">&nbsp;Whatsapp</span>
+						</button>
+					</li>
+					<li class="list-inline-item">&nbsp;</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock contact %}
