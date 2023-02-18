@@ -10,7 +10,9 @@ from .models import Hostel, Location
 
 
 def hostel_home(request):
-    return render(request, 'hostel_home.html')
+    context = {}
+    context['hostels'] = Hostel.objects.all()
+    return render(request, 'hostel_home.html',context)
 
 
 @login_required(login_url='login')

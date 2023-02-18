@@ -6,7 +6,7 @@ from django.urls import reverse
 
 class Hostel(models.Model):
     name = models.CharField(max_length=50)
-    cover = models.ImageField(upload_to='cover')
+    cover = models.ImageField(upload_to='cover',default='default.png')
     services = models.ManyToManyField("Service")
     location = models.ForeignKey(
         "Location", on_delete=models.SET_NULL, null=True)
@@ -65,8 +65,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(default="guest", max_length=50)
     profile_pic = models.ImageField(
-        upload_to='profile/', default='profile/default.jpg')
-    cover = models.ImageField(upload_to='cover/', default='cover/default.png')
+        upload_to='profile/', default='default.png')
+    cover = models.ImageField(upload_to='cover/', default='default.png')
     age = models.PositiveSmallIntegerField(default=18)
     location = models.ForeignKey(
         Location, on_delete=models.SET_NULL, null=True)

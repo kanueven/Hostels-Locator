@@ -50,7 +50,7 @@ python manage.py runserver
 
 To test the functionality of the application do the following:
 
-1. Create a superuser account to work as the host account for the dummy data to be generated:
+1. Create a superuser account to manage the admin site:
 
 ```bash
 python manage.py createsuperuser
