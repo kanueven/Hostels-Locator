@@ -64,7 +64,7 @@ python create_hostels.py
 ```
 
 
-3. Wait fo the process to complete then navigate to the homepage on the browser:
+3. Wait for the process to complete then navigate to the homepage on the browser:
 
 
 ## Contributing
