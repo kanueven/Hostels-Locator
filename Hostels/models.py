@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Hostel(models.Model):
@@ -49,6 +50,21 @@ class Service(models.Model):
     class Meta:
         verbose_name = 'Service'
         verbose_name_plural = 'Services'
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(
+        upload_to='profile/', default='profile/default.jpg')
+    cover = models.ImageField(upload_to='cover/', default='cover/default.png')
+    age = models.PositiveSmallIntegerField(default=18)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
+
+  
+    
+
+    def __str__(self):
+        return self.get_username()
+
 
 class Review(models.Model):
     pass

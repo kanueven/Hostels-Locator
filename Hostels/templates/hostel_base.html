@@ -27,6 +27,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'hostel-list' %}">Hostels</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Signin</a>
+                    </li>    
+                        <li>
+                            {% if user.is_authenticated %}
+
+                            <div class="dropdown">
+                                <a href="" data-bs-toggle="dropdown" aria-expanded="false">{{user}}
+                                    <img src="{{user.userprofile.profile_pic.url}}" alt="Profile Picture"
+                                        style="width:30px;height:30px;"></a>
+
+                                <ul class="dropdown-menu dropdown-menu-dark bg-transparent border-0">
+                                    <li><a class="dropdown-item my-1 main-button"
+                                            href="{{user.userprofile.get_absolute_url}}">Account</a></li>
+                                    <li><a class="dropdown-item my-1" href="" onclick="logout()">Logout</a></li>
+                                </ul>
+                            </div>
+                            {% else %}
+                            <a href="{% url 'signin' %}">Sign In</a>
+                            {% endif %}
+
+                        </li>
+                   
                
                 </ul>
                 <form class="d-flex my-2 my-lg-0">
@@ -46,11 +69,11 @@
 		<footer class="py-5 pb-0">
 			<div class="row">
 				<div class="col-6 col-md-2 mb-3">
-					<h5>Events</h5>
+					<h5>Accomodations</h5>
 					<ul class="nav flex-column">
 						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Home</a></li>
-						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Upcoming</a></li>
-						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Calendar</a></li>
+						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Hostels</a></li>
+						
 					</ul>
 				</div>
 
@@ -64,16 +87,7 @@
 					</ul>
 				</div>
 
-				<div class="col-6 col-md-2 mb-3">
-					<h5>Event Managers</h5>
-					<ul class="nav flex-column">
-						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Dashboard</a></li>
-						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Settings</a></li>
-						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Register</a></li>
-						<li class="nav-item mb-2"><a href="#" class="nav-link p-0">Login</a></li>
-					</ul>
-				</div>
-
+			
 
 
 				<div class="col-md-5 offset-md-1 mb-3">
