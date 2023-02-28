@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -35,6 +35,8 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
+def profile(request):
+    return render(request, 'profile.html')
 
 class HostelListView(generic.ListView):
     model = Hostel
@@ -44,6 +46,8 @@ class HostelListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get("query")
+        context['locations'] = Location.objects.all()
+        context['select_location'] = self.request.GET.get("location")
         if query:
             context["query"] = query
         return context
@@ -51,8 +55,12 @@ class HostelListView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         query = self.request.GET.get("query")
+        location = self.request.GET.get("location")
         if query:
             queryset = queryset.filter(name__icontains=query)
+            
+        if location:
+            queryset = queryset.filter(location__name__icontains=location)
             
         return queryset
     
@@ -67,7 +75,6 @@ def registerView(request, role):
     context = {}
     context['role'] = role
     if request.method == 'POST':
-        print('1')
         form = UserForm(request.POST)
 
         if form.is_valid():
@@ -98,7 +105,8 @@ def loginView(request, role):
                 login(request, new_user)
 
             except:
-
+                context['usererror'] = get_user_model().objects.filter(
+                    username=form.cleaned_data['username'])
                 context['errors'] = True
             else:
                 return redirect('hostel-home')

@@ -1,6 +1,9 @@
 {% extends 'hostel_base.html' %} {% load static %} {% block main %}
-<section class="text-center download-section content-section" id="hostels"
-    style="background-image: url('{% static 'assets/img/downloads-bg.jpg' %}');padding: 0;height: 412px;">
+<section class="text-center download-section content-section" id="hostels" style="
+		background-image: url('{% static 'assets/img/downloads-bg.jpg' %}');
+		padding: 0;
+		height: 412px;
+	">
     <div class="row align-items-end mb-5" style="height: 100%; width: 100%">
         <div class="col-md-8 col-xl-6 text-center d-flex flex-column-reverse align-items-center mx-auto"
             style="height: 50vh">
@@ -16,14 +19,32 @@
 <div class="container" id="hosts" style="margin-top: 100px">
     <div class="row d-flex justify-content-around">
         <div class="col-md-6 col-lg-6 offset-lg-0">
-           <form method="get">
-            <div class="input-group border rounded">
-                <span class="input-group-text"><i class="fa fa-search"></i></span><input class="form-control" name='query' placeholder="Search hostel name" value="{{query}}"  type="text" /><button
-                    class="btn btn-primary" type="submit">
-                    Search
-                </button>
-            </div>
-           </form>
+            <form method="get" id="hostel-form">
+                <div class="input-group border rounded">
+                    <span class="input-group-text"><i class="fa fa-search"></i></span><input class="form-control"
+                        name="query" placeholder="Search hostel name" value="{{query}}" type="text" /><button
+                        class="btn btn-primary" type="submit">
+                        Search
+                    </button>
+                </div>
+                <div class="select mx-auto my-3" style="width:10rem;">
+                    <select class="form-select" id="locationSelect" name="location" aria-label="Select Location"
+                        defaultValue="0">
+
+                        {% if locations %}
+                        <option {% if not select_location %}selected{% endif %}>All</option>
+                        {% for location in locations %}
+                        {% if select_location and location.name == select_location %}
+                        <option value="{{location}}" selected>{{location}}</option>
+                        {% else %}
+                        <option value="{{location}}">{{location}}
+                        </option>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -40,9 +61,8 @@
             </div>
             {% endif %}
         </div>
-        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
-            {% if page_obj%} 
-            {% for hostel in page_obj %}
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center" id="hostels">
+            {% if page_obj%} {% for hostel in page_obj %}
             <div class="col">
                 <div class="card rounded h-100">
                     <img class="card-img-top w-100 d-block fit-cover" style="height: 200px"
@@ -82,15 +102,16 @@
                     {% endif %} {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                     <li class="page-item active">
-                        <a class="page-link" href="#?query={{query}}">{{ num }} <span class="sr-only">(current)</span></a>
+                        <a class="page-link" href="#?query={{query}}">{{ num }} <span
+                                class="sr-only">(current)</span></a>
                     </li>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
                         <a class="page-link" href="?page={{ num }}&query={{query}}">{{ num }}</a>
                         </li>
                         {% endif %} {% endfor %} {% if page_obj.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&query={{query}}" aria-label="Next"><span
-                                    aria-hidden="true">&raquo;</span></a>
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&query={{query}}"
+                                aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                         </li>
                         {% else %}
                         <li class="page-item disabled">
