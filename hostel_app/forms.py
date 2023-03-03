@@ -1,5 +1,6 @@
 from django import forms
-from .models import Hostel, Location
+from django.shortcuts import redirect,render
+from .models import Hostel, Location,Book,Room
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -19,6 +20,27 @@ class HostelForm(forms.ModelForm):
         model = Hostel
         fields = ("name", "cover", "address", "location")
 
+#Create forms for creating and updating bookings
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['room', 'start_date', 'end_date', 'guest_name', 'guest_email']
+
+def book_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.room = room
+            booking.save()
+            return redirect('room_detail', room_id=room.id)
+    else:
+        form = BookingForm()
+    return render(request, 'book_room.html', {'form': form, 'room': room})
+
+
+
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -29,3 +51,5 @@ class UserForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField()
+
+    

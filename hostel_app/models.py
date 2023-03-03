@@ -24,6 +24,27 @@ class Hostel(models.Model):
         verbose_name = 'Hostel'
         verbose_name_plural = 'Hostels'
         ordering = ['name']
+    
+class Room(models.Model):
+    room_number = models.CharField(max_length= 10)
+    capacity = models.IntegerField()
+    is_available = models.BooleanField(default=True)
+    hostel = models.ForeignKey(Hostel, on_delete=models.CASCADE)
+
+
+    def __str__(self) :
+        return f"Room{self.room_number} - {self.capacity} beds"
+    class Meta:
+        ordering = ['room_number']
+        verbose_name = 'Room'
+        verbose_name_plural = 'Rooms'
+        
+class Book(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    guest_name = models.CharField(max_length=100)
+    guest_email = models.EmailField()
 
 
 class Category(models.Model):
@@ -49,6 +70,19 @@ class Location(models.Model):
         verbose_name = 'Location'
         verbose_name_plural = 'Locations'
 
+class Cordinate(models.Model):
+    """Model definition for location  Cordinates."""
+    city = models.ForeignKey(
+        Location, on_delete=models.CASCADE, blank=True, null=True)
+    lat = models.DecimalField(max_digits=22, decimal_places=16)
+    long = models.DecimalField(max_digits=22, decimal_places=16)
+
+    class Meta:
+        """Meta definition for Cordinate."""
+
+        verbose_name = 'Cordinate'
+        verbose_name_plural = 'Cordinates'
+
 
 class Service(models.Model):
     name = models.CharField(max_length=50)
@@ -60,7 +94,9 @@ class Service(models.Model):
     class Meta:
         verbose_name = 'Service'
         verbose_name_plural = 'Services'
-
+  
+        
+  
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -74,6 +110,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.get_username()
+    
 
 
 class Review(models.Model):

@@ -26,7 +26,7 @@
 											<label for="exampleInputEmail1">Username</label>
 											<input type="text" name="username"
 												class="form-control {% if errors %} sudaise18@gmail.com {% endif %}"
-												id="exampleInputEmail1" />
+												id="username" />
 											<small class="text-danger">
 												{% if errors and not usererror %}
 												Username does not exist
@@ -36,7 +36,7 @@
 										<div class="form-group mb-5">
 											<label for="exampleInputPassword1">Password</label>
 											<input type="password" name="password" class="form-control"
-												id="exampleInputPassword1" />
+												id="password" />
 											<small class="text-danger">
 												{% if usererror %}
 												Incorrect Password

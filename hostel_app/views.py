@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
+from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login, logout,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from hostel_app.forms import LoginForm, UserForm, HostelForm
-from .models import Hostel, Location
+from .models import Hostel, Location,Room,Book
 
 
 def hostel_home(request):
@@ -66,9 +67,23 @@ class HostelListView(generic.ListView):
     
 
 
-class HostelDetailView(generic.DetailView):
+class HostelDetailView(DetailView):
     model = Hostel
     template_name = "hostel_detail.html"
+
+def hostel_detail(request, hostel_id):
+    hostel = Hostel.objects.get(id=hostel_id)
+    rooms = Room.objects.filter(hostel=hostel)
+    return render(request, 'hostel_detail.html', {'hostel': hostel, 'rooms': rooms})
+
+def room_detail(request, room_id):
+    room = Room.objects.get(id=room_id)
+    bookings = Book.objects.filter(room=room)
+    return render(request, 'room_detail.html', {'room': room, 'bookings': bookings})
+#one for displaying the details of a specific hostel and its rooms, 
+# and one for displaying the details of a specific room and its bookings
+
+
 
 
 def registerView(request, role):
@@ -117,3 +132,4 @@ def loginView(request, role):
 def logoutView(request):
     logout(request)
     return redirect('hostel-home')
+

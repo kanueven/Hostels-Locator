@@ -1,4 +1,6 @@
-{% extends 'hostel_base.html' %} {% load static %} {% block main %}
+{% extends 'hostel_base.html' %} 
+{% load static %}
+ {% block main %}
 <section
 	class="text-center content-section"
 	id="about"
@@ -83,7 +85,7 @@
 						<div class="carousel-item active h-100">
 							<img
 								class="w-100 d-block position-absolute h-100 fit-cover"
-								src="{% static 'assets/img/intro-bg.jpg' %}"
+								src="{% static 'assets/img/index.jpeg' %}"
 								alt="Slide Image"
 								style="z-index: -1"
 							/>
@@ -91,7 +93,7 @@
 						<div class="carousel-item h-100">
 							<img
 								class="w-100 d-block position-absolute h-100 fit-cover"
-								src="{% static 'assets/img/img5.png' %}"
+								src="{% static 'assets/img/2rooms.jpeg' %}"
 								alt="Slide Image"
 								style="z-index: -1"
 							/>
@@ -99,7 +101,7 @@
 						<div class="carousel-item h-100">
 							<img
 								class="w-100 d-block position-absolute h-100 fit-cover"
-								src="{% static 'assets/img/img2.png' %}"
+								src="{% static 'assets/img/elites.jpeg' %}"
 								alt="Slide Image"
 								style="z-index: -1"
 							/>
@@ -145,7 +147,7 @@
 <section
 	class="text-center download-section content-section"
 	id="hostels"
-	style="background-image: url('{% static 'assets/img/downloads-bg.jpg' %}'); padding: 0"
+	style="background-image: url('{% static 'assets/img/elite.JPG' %}'); padding: 0"
 ></section>
 <div
 	class="container d-xl-flex justify-content-xl-center align-items-xl-center"
@@ -154,16 +156,15 @@
 >
 	<div class="col-md-6 text-center">
 		<p style="font-weight: bold; font-size: 18px; margin-top: 12px">
-			Are you a hostel owner looking to showcase your property to a global
-			audience of travelers? Hostel Locator makes it easy to manage your
-			hostel and reach new guests. With our user-friendly platform, you
-			can add and edit information about your hostel, manage bookings, and
-			connect with guests directly. Our analytics tools also provide
-			valuable insights into your hostel's performance. Join our community
-			of hostel owners today and take your business to the next level!
-		</p>
+			Are you a hostel owner looking to showcase
+			your property to users? Hostel Locator makes it easy to manage your hostel and
+			reach new guests. With our user-friendly platform, you can add and edit information about your hostel,
+			manage bookings, and connect with guests directly. Our analytics tools also provide valuable insights
+			into your hostel's performance. Join our community of hostel owners today and take your business to the
+			next level!</p>
 		<div class="btn-group" role="group">
-			<button class="btn btn-outline-primary" type="button">Book</button
+			
+			<a class="btn btn-outline-primary" id=btnhostelbook type="button" href="#">Book</a
 			><button class="btn btn-success" type="button">
 				Leave a review
 			</button>
@@ -182,7 +183,7 @@
 				<p class="text-light" style="padding: 10px 0">
 					For more information on the hostel kindly contact the owner
 					using method given below. Remember to keep things
-					proffesional.
+					professional.
 				</p>
 				<ul class="list-inline banner-social-buttons">
 					<li class="list-inline-item">&nbsp;</li>
