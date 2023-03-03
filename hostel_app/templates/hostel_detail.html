@@ -9,70 +9,9 @@
 	<h2>{{hostel}}</h2>
 	<div class="container">
 		<div
-			class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center"
-		>
-			<div class="col-lg-8 col-xl-3 mx-auto">
-				<div
-					class="row gy-2 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 d-xl-flex justify-content-xl-center align-items-xl-center"
+					class="d-flex justify-content-evenly"
+					style="margin: 20px 0px"
 				>
-					<div class="col-xl-12">
-						<h5 class="text-primary">Address</h5>
-						<div
-							class="d-flex justify-content-evenly"
-							style="margin: 20px 0px"
-						>
-							<i
-								class="fa fa-location-arrow"
-								style="font-size: 39px"
-							></i
-							><strong>{{hostel.location}}</strong>
-						</div>
-						<div
-							class="d-flex justify-content-evenly"
-							style="margin: 20px 0px"
-						>
-							<i
-								class="fa fa-street-view"
-								style="font-size: 39px"
-							></i
-							><b>{{hostel.address}}&nbsp;</b>
-						</div>
-					</div>
-					<div class="col-xl-12">
-						<h5 class="text-primary">Services</h5>
-						<div
-							class="justify-content-between"
-							style="margin: 20px 0px"
-						>
-							<button
-								class="btn btn-dark border rounded"
-								type="button"
-								style="padding: 10px 20px; margin: 5px"
-							>
-								WIFI</button
-							><button
-								class="btn btn-dark border rounded"
-								type="button"
-								style="padding: 10px 20px; margin: 10px"
-							>
-								parking</button
-							><button
-								class="btn btn-dark border rounded"
-								type="button"
-								style="padding: 10px 20px; margin: 10px"
-							>
-								Transport</button
-							><button
-								class="btn btn-dark border rounded"
-								type="button"
-								style="padding: 10px 20px; margin: 10px"
-							>
-								security
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="col-lg-8 col-xl-8 mx-auto">
 				<div
 					class="carousel slide carousel-dark"
@@ -154,20 +93,71 @@
 	id="hosts"
 	style="margin-top: 100px"
 >
-	<div class="col-md-6 text-center">
-		<p style="font-weight: bold; font-size: 18px; margin-top: 12px">
-			Are you a hostel owner looking to showcase
-			your property to users? Hostel Locator makes it easy to manage your hostel and
-			reach new guests. With our user-friendly platform, you can add and edit information about your hostel,
-			manage bookings, and connect with guests directly. Our analytics tools also provide valuable insights
-			into your hostel's performance. Join our community of hostel owners today and take your business to the
-			next level!</p>
-		<div class="btn-group" role="group">
+
+		<div
 			
-			<a class="btn btn-outline-primary" id=btnhostelbook type="button" href="#">Book</a
-			><button class="btn btn-success" type="button">
-				Leave a review
+			<div class="col-lg-8 col-xl-3 mx-auto">
+				
+				<form>
+					<div class="col-xl-12">
+						<h5 class="text-primary">Address</h5>
+						<div
+							class="d-flex justify-content-evenly"
+							style="margin: 20px 0px"
+						>
+							<i
+								class="fa fa-location-arrow"
+								style="font-size: 39px"
+							></i
+							><strong>{{hostel.location}}</strong>
+						</div>
+						<div
+							class="d-flex justify-content-evenly"
+							style="margin: 20px 0px"
+						>
+							<i
+								class="fa fa-street-view"
+								style="font-size: 39px"
+							></i
+							><b>{{hostel.address}}&nbsp;</b>
+						</div>
+				
+					<div class="col-xl-12">
+						<h5 class="text-primary">Features</h5>
+						<div
+							class="justify-content-between"
+							style="margin: 20px 0px"
+						>
+						<i class="fa fa-key">room name</i>
+						<div class="col-xl-12">
+							<h5 class="text-primary">Services offered:</h5>
+						
+
+						
+						<i class="fa fa-wifi">WIFI &nbsp;</i>
+						<i class="fa fa-water">water &nbsp;</i>
+						<i class="fa fa-car">parking &nbsp;</i>
+						<i class="fa fa-bus">Transport &nbsp;</i>
+						<i class="fa fa-unlock">security &nbsp;</i>
+						
+						
+								<i class="fa fa-cost">Price:ksh3000</i>
+								<i class="fa fa-wallet">Extra xost: ksh 2000 deposit</i>
+						</div>
+						</div>
+					</div>
+				</form>>
+				</div>
+			</div>
+			
+				
+				
+
+			<div class=""
+			<a class="btn btn-outline-primary" id=btnhostelbook type="button" href="#">Book &nbsp;</a
+			>
 			</button>
+		</div>
 		</div>
 	</div>
 </div>

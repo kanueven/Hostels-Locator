@@ -1,0 +1,74 @@
+<div
+					class="d-flex justify-content-evenly"
+					style="margin: 20px 0px"
+				>
+			<div class="col-lg-8 col-xl-8 mx-auto">
+				<div
+					class="carousel slide carousel-dark"
+					data-bs-ride="carousel"
+					data-bs-interval="3000"
+					id="carousel-1"
+					style="height: 600px"
+				>
+					<div class="carousel-inner h-100">
+						<div class="carousel-item active h-100">
+							<img
+								class="w-100 d-block position-absolute h-100 fit-cover"
+								src="{% static 'assets/img/index.jpeg' %}"
+								alt="Slide Image"
+								style="z-index: -1"
+							/>
+						</div>
+						<div class="carousel-item h-100">
+							<img
+								class="w-100 d-block position-absolute h-100 fit-cover"
+								src="{% static 'assets/img/2rooms.jpeg' %}"
+								alt="Slide Image"
+								style="z-index: -1"
+							/>
+						</div>
+						<div class="carousel-item h-100">
+							<img
+								class="w-100 d-block position-absolute h-100 fit-cover"
+								src="{% static 'assets/img/elites.jpeg' %}"
+								alt="Slide Image"
+								style="z-index: -1"
+							/>
+						</div>
+					</div>
+					<div>
+						<a
+							class="carousel-control-prev"
+							href="#carousel-1"
+							role="button"
+							data-bs-slide="prev"
+							><span class="carousel-control-prev-icon"></span
+							><span class="visually-hidden">Previous</span></a
+						><a
+							class="carousel-control-next"
+							href="#carousel-1"
+							role="button"
+							data-bs-slide="next"
+							><span class="carousel-control-next-icon"></span
+							><span class="visually-hidden">Next</span></a
+						>
+					</div>
+					<ol class="carousel-indicators">
+						<li
+							data-bs-target="#carousel-1"
+							data-bs-slide-to="0"
+							class="active"
+						></li>
+						<li
+							data-bs-target="#carousel-1"
+							data-bs-slide-to="1"
+						></li>
+						<li
+							data-bs-target="#carousel-1"
+							data-bs-slide-to="2"
+						></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
