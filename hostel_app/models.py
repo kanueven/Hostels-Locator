@@ -8,8 +8,7 @@ class Hostel(models.Model):
     name = models.CharField(max_length=50)
     cover = models.ImageField(upload_to='cover',default='default.png')
     services = models.ManyToManyField("Service")
-    location = models.ForeignKey(
-        "Location", on_delete=models.SET_NULL, null=True)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=250, null=True)
     owner = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
 
@@ -24,7 +23,7 @@ class Hostel(models.Model):
         verbose_name = 'Hostel'
         verbose_name_plural = 'Hostels'
         ordering = ['name']
-    
+
 class Room(models.Model):
     room_number = models.CharField(max_length= 10)
     capacity = models.IntegerField()
@@ -61,27 +60,18 @@ class Category(models.Model):
 
 
 class Location(models.Model):
-    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Location'
-        verbose_name_plural = 'Locations'
+        verbose_name = 'UserLocation'
+        verbose_name_plural = 'UserLocations'
 
-class Cordinate(models.Model):
-    """Model definition for location  Cordinates."""
-    city = models.ForeignKey(
-        Location, on_delete=models.CASCADE, blank=True, null=True)
-    lat = models.DecimalField(max_digits=22, decimal_places=16)
-    long = models.DecimalField(max_digits=22, decimal_places=16)
-
-    class Meta:
-        """Meta definition for Cordinate."""
-
-        verbose_name = 'Cordinate'
-        verbose_name_plural = 'Cordinates'
 
 
 class Service(models.Model):

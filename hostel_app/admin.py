@@ -25,6 +25,10 @@ class LocationAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('room',)
+
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):

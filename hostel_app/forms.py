@@ -1,6 +1,6 @@
 from django import forms
 from django.shortcuts import redirect,render
-from .models import Hostel, Location,Book,Room,Cordinate
+from .models import Hostel, Location,Book,Room
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -52,20 +52,5 @@ class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField()
 
-class LocationForm(forms.ModelForm):
-    """Form definition for Location."""
 
-    class Meta:
-        """Meta definition for Locationform."""
 
-        model = Location
-        fields = ('name',)
-        
-class CordinateForm(forms.ModelForm):
-    """Form definition for Cordinates."""
-
-    class Meta:
-        """Meta definition for Cordinateform."""
-
-        model = Cordinate
-        fields = ('lat','long',)

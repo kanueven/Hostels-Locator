@@ -1,0 +1,30 @@
+{% extends 'hostel_base.html' %}
+
+{% block content %}
+    <h1>Live Location</h1>
+    <div id="map" style="height: 400px;"></div>
+{% endblock %}
+
+{% block scripts %}
+<h1>Live Location: {{ location.name }}</h1>
+<div id="map"></div>
+<script>
+function initMap() {
+  var location = {lat: {{ location.latitude }}, lng: {{ location.longitude }}};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: location
+  });
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: '{{ location.name }}'
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+    async defer></script>
+{% endblock %}
+
+
+

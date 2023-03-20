@@ -1,14 +1,28 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
-from django.views.generic import DetailView
+from django.views.generic import DetailView,TemplateView,FormView
 from django.contrib.auth import authenticate, login, logout,get_user_model
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from hostel_app.forms import LoginForm, UserForm, HostelForm
 from .models import Hostel, Location,Room,Book
 
+
+#create a view in Django that accepts location data via POST request and saves it to the database
+
+class LiveLocationView(TemplateView):
+    template_name = 'live_location.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        location = Location.objects.get(pk=self.kwargs['pk'])
+        context['location'] = location
+        return context
+    
 
 def hostel_home(request):
     context = {}
@@ -65,7 +79,15 @@ class HostelListView(generic.ListView):
             
         return queryset
     
-
+def add_hostel(request):
+    if request.method == 'POST':
+        form = HostelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('hostel_list')
+    else:
+        form = HostelForm()
+    return render(request, 'add_hostel.html', {'form': form})
 
 class HostelDetailView(DetailView):
     model = Hostel
@@ -82,7 +104,21 @@ def room_detail(request, room_id):
     return render(request, 'room_detail.html', {'room': room, 'bookings': bookings})
 #one for displaying the details of a specific hostel and its rooms, 
 # and one for displaying the details of a specific room and its bookings
+class BookHostelView(FormView):
+    template_name = 'book_hostel.html'
+    form_class = BookingForm
 
+    def get_success_url(self):
+        return reverse('booked_hostel', kwargs={'hostel_id': self.kwargs['hostel_id']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hostel'] = Hostel.objects.get(pk=self.kwargs['hostel_id'])
+        return context
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 

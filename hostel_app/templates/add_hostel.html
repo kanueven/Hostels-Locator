@@ -1,0 +1,10 @@
+{% extends 'hostel_base.html' %}
+
+{% block content %}
+  <h1>Add Hostel</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Hostel</button>
+  </form>
+{% endblock %}

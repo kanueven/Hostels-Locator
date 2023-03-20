@@ -121,14 +121,30 @@
 							></i
 							><b>{{hostel.address}}&nbsp;</b>
 						</div>
+						<hr>
+						<h2 class="mt-5 mb-4">Rooms</h2>
+						<div class="row">
+						  {% for room in hostel.rooms.all %}
+							<div class="col-lg-4 mb-4">
+							  <div class="card">
+								<img src="{{ room.image.url }}" alt="{{ room.name }}" class="card-img-top">
+								<div class="card-body">
+								  <h5 class="card-title">{{ room.name }}</h5>
+								  <p class="card-text">{{ room.description }}</p>
+								  <a href="{% url 'book_hostel' hostel_id=hostel.pk %}">Book Now</a>
+								</div>
+							  </div>
+							</div>
+						  {% endfor %}
+						</div>
+						<hr>
 				
 					<div class="col-xl-12">
-						<h5 class="text-primary">Features</h5>
-						<div
-							class="justify-content-between"
-							style="margin: 20px 0px"
-						>
-						<i class="fa fa-key">room name</i>
+						<h5 class="text-primary">Services</h5>
+						<div class="card-body">
+							<h5 class="card-title">{{ service.name }}</h5>
+							<p class="card-text">{{ service.description }}</p>
+						  </div>
 						<div class="col-xl-12">
 							<h5 class="text-primary">Services offered:</h5>
 						
@@ -154,8 +170,7 @@
 				
 
 			<div class=""
-			<a class="btn btn-outline-primary" id=btnhostelbook type="button" href="#">Book &nbsp;</a
-			>
+			<a class="btn btn-outline-success" id=btnhostelbook type="button" href="{url 'Book'}">Book &nbsp;</a>
 			</button>
 		</div>
 		</div>
