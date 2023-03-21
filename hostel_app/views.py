@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
-from django.views.generic import DetailView,TemplateView,FormView
-from django.contrib.auth import authenticate, login, logout,get_user_model
+from django.views.generic import DetailView, TemplateView, FormView
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from hostel_app.forms import BookingForm, LoginForm, UserForm, HostelForm
-from .models import Hostel, Location,Room,Booking
+from .models import Hostel, Location, Room, Booking
 
-#create a view in Django that accepts location data via POST request and saves it to the database
+# create a view in Django that accepts location data via POST request and saves it to the database
+
 
 class LiveLocationView(TemplateView):
     template_name = 'live_location.html'
@@ -19,7 +20,7 @@ class LiveLocationView(TemplateView):
         location = Location.objects.get(pk=self.kwargs['pk'])
         context['location'] = location
         return context
-    
+
 
 def hostel_home(request):
     context = {}
@@ -47,8 +48,10 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
+
 def profile(request):
     return render(request, 'profile.html')
+
 
 class HostelListView(generic.ListView):
     model = Hostel
@@ -58,24 +61,42 @@ class HostelListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get("query")
+        lat = self.request.GET.get("lat")
+        long = self.request.GET.get("lng")
+        nearby = self.request.GET.get("nearby")
+        try:
+            user_location = get_location(lat, long)
+            context['show_near'] = nearby
+            context['nearby'] = Hostel.objects.filter(
+                location__name__icontains=user_location)
+            context['user_location'] = user_location
+        except:
+            pass
         context['locations'] = Location.objects.all()
         context['select_location'] = self.request.GET.get("location")
         if query:
             context["query"] = query
         return context
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
         query = self.request.GET.get("query")
         location = self.request.GET.get("location")
         if query:
             queryset = queryset.filter(name__icontains=query)
-            
+
         if location:
             queryset = queryset.filter(location__name__icontains=location)
-            
+
         return queryset
-    
+
+
+def get_location(lat, long):
+    import geocoder
+    g = geocoder.osm([lat, long], method='reverse')
+    return g.json['state']
+
+
 def add_hostel(request):
     if request.method == 'POST':
         form = HostelForm(request.POST)
@@ -86,22 +107,27 @@ def add_hostel(request):
         form = HostelForm()
     return render(request, 'add_hostel.html', {'form': form})
 
+
 class HostelDetailView(DetailView):
     model = Hostel
     template_name = "hostel_detail.html"
+
 
 def hostel_detail(request, hostel_id):
     hostel = Hostel.objects.get(id=hostel_id)
     rooms = Room.objects.filter(hostel=hostel)
     return render(request, 'hostel_detail.html', {'hostel': hostel, 'rooms': rooms})
 
+
 def room_detail(request, room_id):
     room = Room.objects.get(id=room_id)
     bookings = Booking.objects.filter(room=room)
     return render(request, 'room_detail.html', {'room': room, 'bookings': bookings})
 
-#one for displaying the details of a specific hostel and its rooms, 
+# one for displaying the details of a specific hostel and its rooms,
 # and one for displaying the details of a specific room and its bookings
+
+
 class BookHostelView(FormView):
     template_name = 'book_hostel.html'
     form_class = BookingForm()
@@ -117,7 +143,6 @@ class BookHostelView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
 
 
 def registerView(request, role):
@@ -167,4 +192,3 @@ def loginView(request, role):
 def logoutView(request):
     logout(request)
     return redirect('hostel-home')
-

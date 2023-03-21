@@ -66,6 +66,7 @@ class Category(models.Model):
 
 
 class Location(models.Model):
+    
     name = models.CharField(max_length=150,blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)

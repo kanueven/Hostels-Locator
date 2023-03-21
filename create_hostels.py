@@ -14,7 +14,7 @@ import random
 
 fakegen = Faker()
 
-cities = ['Kisumu', ' Nairobi', 'Nakuru', 'Mombasa', 'Malindi', 'Kakamega','Busia','Rongai']
+cities = ['Kisumu', ' Nairobi', 'Nakuru', 'Mombasa', 'Malindi', 'Kakamega','Busia','Kajiado']
 
 def get_location():
     return random.choice(cities)
