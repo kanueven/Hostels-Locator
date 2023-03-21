@@ -19,6 +19,11 @@
                                     </p>
                                     <form method="post" >
                                         {% csrf_token %}
+                                        <small class="text-danger">
+                                            {% if errors %}
+                                            {{errors}}
+                                            {% endif %}
+                                        </small>
                                         <div class="form-group">
                                             <label for="FirstName">First Name</label>
                                             <input type="text" name="first_name" class="form-control" id="FirstName" />

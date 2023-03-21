@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.conf import settings
 # Create your models here.
 
 
@@ -41,11 +42,14 @@ class Room(models.Model):
 
 
 class Booking(models.Model):
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
-    guest_name = models.CharField(max_length=100)
-    guest_email = models.EmailField()
+
+    def __str__(self):
+        return f"{self.user} has booked {self.room} from {self.start_date} to {self.end_date}"
+  
 
 
 class Category(models.Model):

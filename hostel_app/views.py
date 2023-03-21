@@ -133,6 +133,7 @@ def registerView(request, role):
             login(request, new_user)
 
             return redirect('hostel-home')
+        context['errors']='Invalid form data'
 
     context['form'] = UserForm()
 
