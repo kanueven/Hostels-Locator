@@ -24,7 +24,7 @@ class HostelForm(forms.ModelForm):
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ['room', 'start_date', 'end_date', 'guest_name', 'guest_email']
+        fields = ['room', 'start_date', 'end_date', ]
 
 def book_room(request, room_id):
     room = Room.objects.get(id=room_id)
