@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-
-from hostel_app.admin import LocationAdmin
 # Create your models here.
 
 
