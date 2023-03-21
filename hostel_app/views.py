@@ -7,8 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from hostel_app.forms import BookingForm, LoginForm, UserForm, HostelForm
-from .models import Hostel, Location,Room,Book
-
+from .models import Hostel, Location,Room,Booking
 
 #create a view in Django that accepts location data via POST request and saves it to the database
 

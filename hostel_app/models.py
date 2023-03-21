@@ -40,14 +40,9 @@ class Room(models.Model):
         ordering = ['room_number']
         verbose_name = 'Room'
         verbose_name_plural = 'Rooms'
-<<<<<<< HEAD
-        
+
+
 class Booking(models.Model):
-=======
-
-
-class Book(models.Model):
->>>>>>> 3fce8ad427b6e080fc17472e6367500cfb16dcaf
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
