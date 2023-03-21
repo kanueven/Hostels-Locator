@@ -1,6 +1,6 @@
 from django import forms
 from django.shortcuts import redirect,render
-from .models import Hostel, Location,Book,Room
+from .models import Hostel, Location,Booking,Room
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -23,7 +23,7 @@ class HostelForm(forms.ModelForm):
 #Create forms for creating and updating bookings
 class BookingForm(forms.ModelForm):
     class Meta:
-        model = Book
+        model = Booking
         fields = ['room', 'start_date', 'end_date', 'guest_name', 'guest_email']
 
 def book_room(request, room_id):

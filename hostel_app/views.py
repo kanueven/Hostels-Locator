@@ -8,8 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from hostel_app.forms import LoginForm, UserForm, HostelForm
-from .models import Hostel, Location,Room,Book
+from hostel_app.forms import BookingForm, LoginForm, UserForm, HostelForm
+from .models import Hostel, Location,Room,Booking
 
 
 #create a view in Django that accepts location data via POST request and saves it to the database
@@ -100,7 +100,7 @@ def hostel_detail(request, hostel_id):
 
 def room_detail(request, room_id):
     room = Room.objects.get(id=room_id)
-    bookings = Book.objects.filter(room=room)
+    bookings = Booking.objects.filter(room=room)
     return render(request, 'room_detail.html', {'room': room, 'bookings': bookings})
 #one for displaying the details of a specific hostel and its rooms, 
 # and one for displaying the details of a specific room and its bookings
