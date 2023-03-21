@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Booking, Hostel, Category, Location, Service, UserProfile, Review
+from .models import Book, Hostel, Category, Location, Service, UserProfile, Review
 
 # Register your models here.
 
