@@ -30,6 +30,7 @@ def hostel_home(request):
 
 @login_required(login_url='login')
 def dashboard(request):
+    context = {}
     if request.method == "POST":
         form = HostelForm(request.POST, request.FILES)
         if form.is_valid():
@@ -40,7 +41,6 @@ def dashboard(request):
     else:
         form = HostelForm()
 
-    context = {}
     context['locations'] = Location.objects.all()
     context['hostels'] = Hostel.objects.filter(
         owner=request.user)  # filter hostels by owner
@@ -158,7 +158,7 @@ def registerView(request, role):
             login(request, new_user)
 
             return redirect('hostel-home')
-        context['errors']='Invalid form data'
+        context['errors'] = 'Invalid form data'
 
     context['form'] = UserForm()
 

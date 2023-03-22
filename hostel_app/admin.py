@@ -33,7 +33,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'role', 'location')
+    list_display = ('user', 'role')
     search_fields = ('user__username', 'user__email')
 
 

@@ -95,10 +95,8 @@ class UserProfile(models.Model):
     profile_pic = models.ImageField(
         upload_to='profile/', default='default.png')
     cover = models.ImageField(upload_to='cover/', default='default.png')
-    age = models.PositiveSmallIntegerField(default=18)
-    location = models.ForeignKey(
-        Location, on_delete=models.SET_NULL, null=True)
-
+    phone = models.CharField(max_length=20, null=True)
+    
     def __str__(self):
         return self.get_username()
 
