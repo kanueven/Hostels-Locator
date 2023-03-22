@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 'Hostels',
     'hostel_app',
     'payment',
+     'hostel_app.booking_functions'
 ]
 
 MIDDLEWARE = [
