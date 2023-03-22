@@ -1,4 +1,42 @@
-{% extends 'hostel_base.html' %} {% load static %} {% block main %}
+{% extends 'hostel_base.html' %} {% load static %}
+{% block navbar %}
+<div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item nav-link">
+            <a class="nav-link active" href="{% url 'hostel-list' %}">Hostels</a>
+        </li>
+
+        {% if user.is_authenticated %}
+
+
+        {% if user.userprofile.role == 'host' %}
+        <li class="nav-item nav-link">
+            <a class="nav-link" href="{% url 'dashboard' %}">Host Dashboard</a>
+        </li>
+
+
+        {% endif %}
+        <li class="nav-item nav-link">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+        </li>
+        <li class="nav-item nav-link">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+
+        <li class="nav-item nav-link">
+            <a class="nav-link" href="{% url 'login' role='host' %}">Host Login</a>
+        </li>
+        <li class="nav-item nav-link">
+            <a class="nav-link" href="{% url 'login' role='guest' %}">Guest login</a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item"></li>
+    </ul>
+</div>
+{% endblock navbar %}
+{% block main %}
 <section class="text-center download-section content-section" id="hostels" style="
 		background-image: url('{% static 'assets/img/downloads-bg.jpg' %}');
 		padding: 0;

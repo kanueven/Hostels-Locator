@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from hostel_app.forms import BookingForm, LoginForm, UserForm, HostelForm
-from .models import Hostel, Location, Room, Booking
+from .models import Hostel, Location, Room, Booking, UserProfile
 
 # create a view in Django that accepts location data via POST request and saves it to the database
 
@@ -31,6 +31,9 @@ def hostel_home(request):
 @login_required(login_url='login')
 def dashboard(request):
     context = {}
+    if request.user.userprofile.role == 'guest':
+        return render(request, 'profile.html')
+
     if request.method == "POST":
         form = HostelForm(request.POST, request.FILES)
         if form.is_valid():
@@ -155,7 +158,12 @@ def registerView(request, role):
             new_user = form.save(commit=True)
             new_user = authenticate(username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'],)
-            login(request, new_user)
+            
+            if new_user is not None:
+                # Create userprofile
+                user_profile = UserProfile.objects.create(user = new_user,role=role)  
+                user_profile.save()          
+                login(request, new_user)
 
             return redirect('hostel-home')
         context['errors'] = 'Invalid form data'
