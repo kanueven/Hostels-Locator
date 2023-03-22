@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Booking, Hostel, Room, Category, Location, Service, UserProfile, Review
+from .models import Booking, Hostel, Room, Location, Service, UserProfile, Review
 
 # Register your models here.
 
@@ -10,10 +10,7 @@ class HostelAdmin(admin.ModelAdmin):
     search_fields = ('name', 'address', 'location__name')
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'cost', 'hostel')
-    search_fields = ('name', 'hostel__name')
+
 
 
 @admin.register(Location)

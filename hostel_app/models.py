@@ -27,42 +27,39 @@ class Hostel(models.Model):
 
 
 class Room(models.Model):
-    room_number = models.CharField(max_length=10)
+    #Django will automatically generate a dropdown menu for the category field with the three options defined in ROOM_CATEGORY. When a user selects an option and submits the form,
+    #  Django will store the short code for the selected category in the category field.
+    ROOM_CATEGORY = (
+        ['YAC', 'AC'],
+        ['DEL', 'DELUKE'],
+        ['QUE', 'QUEEN'],
+    )
+
+    room_number = models.IntegerField()
+    category = models.CharField(max_length=3, choices=ROOM_CATEGORY)
     capacity = models.IntegerField()
-    is_available = models.BooleanField(default=True)
-    hostel = models.ForeignKey(Hostel, on_delete=models.CASCADE)
+    beds = models.IntegerField()
+  
 
     def __str__(self):
-        return f"Room{self.room_number} - {self.capacity} beds"
+        return f'{self.room_number}. {self.category} with{self.beds}beds for {self.capacity} people'
 
     class Meta:
-        ordering = ['room_number']
         verbose_name = 'Room'
         verbose_name_plural = 'Rooms'
 
 
 class Booking(models.Model):
-    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
 
     def __str__(self):
-        return f" has booked {self.room} from {self.start_date} to {self.end_date}"
+        return f" {self.user}has booked {self.room} from {self.start_date} to {self.end_date}"
   
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=50)
-    cost = models.PositiveIntegerField()
-    hostel = models.ForeignKey("Hostel",  on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
 
 
 class Location(models.Model):
