@@ -25,20 +25,20 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['room', 'start_date', 'end_date', ]
+        room = forms.ModelChoiceField(queryset=Room.objects.all())
+        start_date = forms.DateField()
+        end_date = forms.DateField()
 
-def book_room(request, room_id):
-    room = Room.objects.get(id=room_id)
-    if request.method == 'POST':
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            booking = form.save(commit=False)
-            booking.room = room
-            booking.save()
-            return redirect('room_detail', room_id=room.id)
-    else:
-        form = BookingForm()
-    return render(request, 'book_room.html', {'form': form, 'room': room})
+    def clean(self):
+        cleaned_data = super().clean()
+        room = cleaned_data.get('room')
+        check_in = cleaned_data.get('check_in')
+        check_out = cleaned_data.get('check_out')
 
+def book_room(room, check_in, check_out, user):
+    booking = Booking.objects.create(room=room, check_in=check_in, check_out=check_out, user=user)
+    room.bookings.add(booking)
+    room.save()
 
 
 

@@ -3,6 +3,8 @@ import datetime
 
 def check_availability(room,start_date,end_date):
     #is the new checkin after the checkout or the checkout is before pre existing booking
+    #The function assumes that there is a Booking model in 
+    # ,the application that represents reservations made for a room.
     avail_list=[]
     booking_list = Booking.objects.filter(room=room)
     for booking in booking_list:

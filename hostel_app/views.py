@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from hostel_app.forms import BookingForm, LoginForm, UserForm, HostelForm
 from .models import Hostel, Location, Room, Booking, UserProfile
 
+
 # create a view in Django that accepts location data via POST request and saves it to the database
 
 
@@ -131,21 +132,21 @@ def room_detail(request, room_id):
 # and one for displaying the details of a specific room and its bookings
 
 
+
+
+
 class BookHostelView(FormView):
     template_name = 'book_hostel.html'
     form_class = BookingForm()
 
-    def get_success_url(self):
-        return reverse('booked_hostel', kwargs={'hostel_id': self.kwargs['hostel_id']})
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['hostel'] = Hostel.objects.get(pk=self.kwargs['hostel_id'])
-        return context
-
     def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+        data = form.cleaned_data
+        room_list = Room.objects,filter(category = data ['RoomCategory'])
+        available_rooms_ = []
+        for room in room_list:
+           if check_availability(room,data ['start_date'],data['end_date']):
+            available_rooms_.append(room)
+    
 
 
 def registerView(request, role):

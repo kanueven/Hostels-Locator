@@ -29,14 +29,14 @@ class Hostel(models.Model):
 class Room(models.Model):
     #Django will automatically generate a dropdown menu for the category field with the three options defined in ROOM_CATEGORY. When a user selects an option and submits the form,
     #  Django will store the short code for the selected category in the category field.
-    ROOM_CATEGORY = (
-        ['YAC', 'AC'],
-        ['DEL', 'DELUKE'],
-        ['QUE', 'QUEEN'],
-    )
+   # ROOM_CATEGORY = (
+      #  ['YAC', 'AC'],
+       # ['DEL', 'DELUKE'],
+       # ['QUE', 'QUEEN'],
+    #)
 
     room_number = models.IntegerField()
-    category = models.CharField(max_length=3, choices=ROOM_CATEGORY)
+   # category = models.ForeignKey(Room_category, on_delete=models.CASCADE)
     capacity = models.IntegerField()
     beds = models.IntegerField()
   
@@ -48,10 +48,22 @@ class Room(models.Model):
         verbose_name = 'Room'
         verbose_name_plural = 'Rooms'
 
+class Room_category(models.Model):
+    name = models.CharField(max_length=50)
+    description=models.TextField(blank=True,null=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Room_category'
+        verbose_name_plural = 'Room_categories'
+    
+
 
 class Booking(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)#This links each booking to the room that was booked.
     start_date = models.DateField()
     end_date = models.DateField()
 
