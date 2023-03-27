@@ -1,26 +1,21 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from django.views.generic import DetailView, TemplateView, FormView
+from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
-from hostel_app.forms import BookingForm, LoginForm, UserForm, HostelForm
-from .models import Hostel, Location, Room, Booking, UserProfile
+from hostel_app.forms import HostelImageForm, LoginForm, RoomCategoryForm, UserForm, HostelForm
+from .models import Booking, Hostel, Location, RoomCategory, UserProfile,Service
 
 
 # create a view in Django that accepts location data via POST request and saves it to the database
 
-
-class LiveLocationView(TemplateView):
-    template_name = 'live_location.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        location = Location.objects.get(pk=self.kwargs['pk'])
-        context['location'] = location
-        return context
+##################################################################################
+####################### Hostel Views            ##################################
+##################################################################################
 
 
 def hostel_home(request):
@@ -29,32 +24,13 @@ def hostel_home(request):
     return render(request, 'hostel_home.html', context)
 
 
-@login_required(login_url='login')
-def dashboard(request):
-    context = {}
-    if request.user.userprofile.role == 'guest':
-        return render(request, 'profile.html')
+class HostelCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Hostel
+    form_class = HostelForm
 
-    if request.method == "POST":
-        form = HostelForm(request.POST, request.FILES)
-        if form.is_valid():
-            hostel = form.save(commit=False)
-            hostel.owner = request.user  # add the owner field
-            hostel.save()
-            return HttpResponseRedirect(reverse('hostel-detail', args=[str(hostel.id)]))
-    else:
-        form = HostelForm()
-
-    context['locations'] = Location.objects.all()
-    context['hostels'] = Hostel.objects.filter(
-        owner=request.user)  # filter hostels by owner
-    context['form'] = form
-
-    return render(request, 'dashboard.html', context)
-
-
-def profile(request):
-    return render(request, 'profile.html')
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 
 class HostelListView(generic.ListView):
@@ -95,6 +71,20 @@ class HostelListView(generic.ListView):
         return queryset
 
 
+class HostelDetailView(DetailView):
+    model = Hostel
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['services'] = Service.objects.all()
+        context['room_form'] = RoomCategoryForm()
+        context['image_form'] = HostelImageForm()
+        if self.request.user.is_authenticated:
+            context["owner"] = Hostel.objects.filter(owner=self.request.user)
+            context['guest'] = Booking.objects.filter(user=self.request.user,room__hostel__id = self.kwargs['pk'])
+        return context
+    
+
 def get_location(lat, long):
     import geocoder
     g = geocoder.osm([lat, long], method='reverse')
@@ -111,42 +101,98 @@ def add_hostel(request):
         form = HostelForm()
     return render(request, 'add_hostel.html', {'form': form})
 
+def add_services(request,pk):
+    if request.method == 'POST':
+        hostel = Hostel.objects.get(id=pk)
+        for k,v in request.POST.items():
+            if k == 'csrfmiddlewaretoken':
+                continue
+            else:
+                id = k[-1]
+                service = Service.objects.get(id=id)
+                hostel.services.add(service)
+        
+        hostel.save()
+                
+        return redirect('hostel-detail',pk)
+    
+def add_room(request,pk):
+    if request.method == 'POST':
+        form = RoomCategoryForm(request.POST)
+        if form.is_valid():
+            room = form.save(commit=False)
+            room.hostel = Hostel.objects.get(id=pk)
+            room.save()
+            return redirect('hostel-detail',pk)
+        
+def add_hostelimages(request,pk):
+    hostel = get_object_or_404(Hostel, pk=pk)
+    if request.method == 'POST':
+        form = HostelImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.hostel = hostel  # Associate the image with the hostel
+            image.save()
+            return redirect('hostel-detail', pk=pk)
+        
 
-class HostelDetailView(DetailView):
-    model = Hostel
-    template_name = "hostel_detail.html"
+# def hostel_detail(request, hostel_id):
+#     hostel = Hostel.objects.get(id=hostel_id)
+#     rooms = Room.objects.filter(hostel=hostel)
+#     return render(request, 'hostel_detail.html', {'hostel': hostel, 'rooms': rooms})
 
 
-def hostel_detail(request, hostel_id):
-    hostel = Hostel.objects.get(id=hostel_id)
-    rooms = Room.objects.filter(hostel=hostel)
-    return render(request, 'hostel_detail.html', {'hostel': hostel, 'rooms': rooms})
-
-
-def room_detail(request, room_id):
-    room = Room.objects.get(id=room_id)
-    bookings = Booking.objects.filter(room=room)
-    return render(request, 'room_detail.html', {'room': room, 'bookings': bookings})
+# def room_detail(request, room_id):
+#     room = Room.objects.get(id=room_id)
+#     bookings = Booking.objects.filter(room=room)
+#     return render(request, 'room_detail.html', {'room': room, 'bookings': bookings})
 
 # one for displaying the details of a specific hostel and its rooms,
 # and one for displaying the details of a specific room and its bookings
 
 
+@login_required(login_url='login')
+def dashboard(request):
+    context = {}
+    if request.user.userprofile.role == 'guest':
+        return render(request, 'profile.html')
+
+    if request.method == "POST":
+        form = HostelForm(request.POST, request.FILES)
+        if form.is_valid():
+            hostel = form.save(commit=False)
+            hostel.owner = request.user  # add the owner field
+            hostel.save()
+            return HttpResponseRedirect(reverse('hostel-detail', args=[str(hostel.id)]))
+    else:
+        form = HostelForm()
+
+    context['locations'] = Location.objects.all()
+    context['hostels'] = Hostel.objects.filter(
+        owner=request.user)  # filter hostels by owner
+    context['form'] = form
+
+    return render(request, 'dashboard.html', context)
 
 
+def profile(request):
+    return render(request, 'profile.html')
 
-class BookHostelView(FormView):
-    template_name = 'book_hostel.html'
-    form_class = BookingForm()
 
-    def form_valid(self, form):
-        data = form.cleaned_data
-        room_list = Room.objects,filter(category = data ['RoomCategory'])
-        available_rooms_ = []
-        for room in room_list:
-           if check_availability(room,data ['start_date'],data['end_date']):
-            available_rooms_.append(room)
-    
+def book_room(request,pk):
+    return render(request,'book_room.html',{'pk':pk})
+
+@login_required(login_url='login')
+def confirm_booking(request,pk):
+    if request.method == 'POST':
+        room = RoomCategory.objects.get(id=pk)
+        user = request.user
+        print(request.POST['start_date'])
+        start = request.POST.get('start_date')
+        end = request.POST.get('end_date')
+        booking = Booking.objects.create(room=room,user=user,start_date=start,end_date=end)
+        booking.save()
+        return redirect('hostel-detail',room.hostel.id)
 
 
 def registerView(request, role):

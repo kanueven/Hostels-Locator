@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Booking, Hostel, Room, Location, Service, UserProfile, Review
+from .models import Booking, Hostel, Location, Service, UserProfile, Review
 
 # Register your models here.
 
@@ -8,10 +8,6 @@ from .models import Booking, Hostel, Room, Location, Service, UserProfile, Revie
 class HostelAdmin(admin.ModelAdmin):
     list_display = ('name', 'address', 'location')
     search_fields = ('name', 'address', 'location__name')
-
-
-
-
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -25,10 +21,7 @@ class ServiceAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('room',)
-
-@admin.register(Room)
-class RoomAdmin(admin.ModelAdmin):
-    list_display = ('room_number',)
+    search_fields = ('room__name', 'room__hostel__name')
 
 
 @admin.register(UserProfile)

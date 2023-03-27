@@ -1,0 +1,36 @@
+{% extends 'hostel_base.html' %}
+
+{% block main %}
+<div class="py-5"></div>
+  <div class="row mx-0 justify-content-center">
+    <div class="col-12 text-center">
+      <h3>Booking form</h3>
+    </div>
+    <form action="{% url 'confirm-booking' pk %}" method="post" class="p-5 col-md-8">
+      {% csrf_token %}
+          
+      <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name= "email"aria-describedby="textHelp">
+      </div>
+     
+      <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Phone</label>
+        <input type="phone" class="form-control" id="phone" name= "phone" aria-describedby="textHelp">
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Check-in</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" aria-describedby="textHelp">
+      </div>
+  
+      <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Check-out</label>
+        <input type="date" class="form-control" id="end_date" name= "end_date" aria-describedby="textHelp">
+      </div>
+    
+    
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+{% endblock %}

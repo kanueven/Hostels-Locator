@@ -1,0 +1,61 @@
+{% extends 'hostel_base.html' %}
+{% load static %}
+{% block navbar %}
+<div class="collapse navbar-collapse" id="navbarResponsive">
+	<ul class="navbar-nav ms-auto">
+		<li class="nav-item nav-link">
+			<a class="nav-link active" href="{% url 'hostel-list' %}">Hostels</a>
+		</li>
+
+		{% if user.is_authenticated %}
+
+
+		{% if user.userprofile.role == 'host' %}
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'dashboard' %}">Host Dashboard</a>
+		</li>
+
+
+		{% endif %}
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+		</li>
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+		</li>
+		{% else %}
+
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'login' role='host' %}">Host Login</a>
+		</li>
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'login' role='guest' %}">Guest login</a>
+		</li>
+		{% endif %}
+
+		<li class="nav-item"></li>
+	</ul>
+</div>
+{% endblock navbar %}
+{% block main %}
+<div class="py-5"></div>
+<div class="container-fluid">
+	<div class="d-sm-flex justify-content-between align-items-center mb-4">
+		<h3 class="text-light mb-0">Hostel information</h3>
+	</div>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="card shadow mb-3 p-3 rounded">
+			<div class="card-header py-3">
+				<p class="text-primary m-0 fw-bold">Fill in the required fields *</p>
+			</div>
+			{{form}}
+			<div class="my-2 text-center">
+				<button class="btn btn-primary" type="submit">
+					Save
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

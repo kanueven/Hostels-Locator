@@ -26,60 +26,38 @@ class Hostel(models.Model):
         ordering = ['name']
 
 
-class Room(models.Model):
-    #Django will automatically generate a dropdown menu for the category field with the three options defined in ROOM_CATEGORY. When a user selects an option and submits the form,
-    #  Django will store the short code for the selected category in the category field.
-   # ROOM_CATEGORY = (
-      #  ['YAC', 'AC'],
-       # ['DEL', 'DELUKE'],
-       # ['QUE', 'QUEEN'],
-    #)
-
-    room_number = models.IntegerField()
-   # category = models.ForeignKey(Room_category, on_delete=models.CASCADE)
-    capacity = models.IntegerField()
-    beds = models.IntegerField()
-  
-
-    def __str__(self):
-        return f'{self.room_number}. {self.category} with{self.beds}beds for {self.capacity} people'
-
-    class Meta:
-        verbose_name = 'Room'
-        verbose_name_plural = 'Rooms'
-
-class Room_category(models.Model):
+class RoomCategory(models.Model):
     name = models.CharField(max_length=50)
-    description=models.TextField(blank=True,null=True)
+    description = models.TextField(blank=True, null=True)
+    quantity = models.IntegerField()
+    price = models.PositiveIntegerField()
+    hostel = models.ForeignKey(Hostel, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
     
+    def get_rooms_left(self):
+        return self.quantity - self.booking_set.count()
+
     class Meta:
         verbose_name = 'Room_category'
         verbose_name_plural = 'Room_categories'
-    
 
 
 class Booking(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)#This links each booking to the room that was booked.
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    # This links each booking to the room that was booked.
+    room = models.ForeignKey(RoomCategory, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
 
     def __str__(self):
         return f" {self.user}has booked {self.room} from {self.start_date} to {self.end_date}"
-  
-
-
 
 
 class Location(models.Model):
-    
-    name = models.CharField(max_length=150,blank=True)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True)
-    timestamp = models.DateTimeField(auto_now_add=True, null=True)
+    name = models.CharField(max_length=150, blank=True)
 
     def __str__(self):
         return self.name
@@ -101,6 +79,15 @@ class Service(models.Model):
         verbose_name_plural = 'Services'
 
 
+class HostelImage(models.Model):
+    image= models.ImageField(upload_to='images/')
+    hostel = models.ForeignKey(Hostel, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'HostelImage'
+        verbose_name_plural = 'HostelImages'
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(default="guest", max_length=50)
@@ -108,7 +95,7 @@ class UserProfile(models.Model):
         upload_to='profile/', default='default.png')
     cover = models.ImageField(upload_to='cover/', default='default.png')
     phone = models.CharField(max_length=20, null=True)
-    
+
     def __str__(self):
         return self.get_username()
 

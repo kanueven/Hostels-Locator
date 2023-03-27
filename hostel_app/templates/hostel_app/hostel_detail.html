@@ -1,0 +1,348 @@
+{% extends 'hostel_base.html' %}
+{% load static %}
+{% block navbar %}
+<div class="collapse navbar-collapse" id="navbarResponsive">
+	<ul class="navbar-nav ms-auto">
+		<li class="nav-item nav-link">
+			<a class="nav-link active" href="{% url 'hostel-list' %}">Hostels</a>
+		</li>
+
+		{% if user.is_authenticated %}
+
+
+		{% if user.userprofile.role == 'host' %}
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'dashboard' %}">Host Dashboard</a>
+		</li>
+		{% elif user.userprofile.role == 'guest' %}
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'dashboard' %}">Guest Dashboard</a>
+		</li>
+
+		{% endif %}
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+		</li>
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+		</li>
+		{% else %}
+
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'login' role='host' %}">Host Login</a>
+		</li>
+		<li class="nav-item nav-link">
+			<a class="nav-link" href="{% url 'login' role='guest' %}">Guest login</a>
+		</li>
+		{% endif %}
+
+		<li class="nav-item"></li>
+	</ul>
+</div>
+{% endblock navbar %}
+{% block main %}
+<section class="text-center content-section" id="about" style="padding: 200px 0 0">
+	<h2>{{hostel}}</h2>
+	<div class="container">
+		<div class="d-flex justify-content-evenly" style="margin: 20px 0px">
+			<img src="{{hostel.cover.url}}" class="img-fluid" alt="...">
+		</div>
+	</div>
+</section>
+<div class="row mx-0 px-4">
+	<div class="col-md-6 row">
+		<div class="col-12 mb-2">
+			<div class="card bg-dark">
+				<div class="card-body">
+					<h5 class="card-title">Hostel Address</h5>
+					<p class="card-text">
+						<span class="fw-bold">Location</span> : {{hostel.location}}
+					</p>
+					<p class="card-text">
+						<span class="fw-bold">Address</span> : {{hostel.address}}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 mb-2">
+			<div class="card bg-dark">
+				<div class="card-body">
+					<h5 class="card-title">Gallery</h5>
+
+					{% if owner%}
+					<!-- Modal trigger button -->
+					<button type="button" class="btn btn-primary btn-md my-2" data-bs-toggle="modal"
+						data-bs-target="#imageFormModal">
+						Upload Images
+					</button>
+
+					<!-- Modal Body -->
+					<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+					<div class="modal fade" id="imageFormModal" tabindex="-1" data-bs-backdrop="static"
+						data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<form action="{% url 'add-images' hostel.id %}" method="post" enctype="multipart/form-data"
+								class="modal-content bg-dark">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modalTitleId">Add hostel images</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									{% csrf_token %}
+									<label for="images">Images:</label>
+									<input id="images" class="form-control" name="image" type="file" accept="image/*"
+										multiple>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+					<!-- Optional: Place to the bottom of scripts -->
+					<script>
+						const myModal = new bootstrap.Modal(document.getElementById('imageFormModal'), options)
+
+					</script>
+					{% endif %}
+
+
+					{% if hostel.hostelimage_set.all %}
+					<div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-bs-target="#galleryCarousel" data-bs-slide-to="0" class="active"
+								aria-current="true" aria-label="First slide"></li>
+							<li data-bs-target="#galleryCarousel" data-bs-slide-to="1" aria-label="Second slide"></li>
+							<li data-bs-target="#galleryCarousel" data-bs-slide-to="2" aria-label="Third slide"></li>
+						</ol>
+						<div class="carousel-inner" role="listbox">
+
+							{% for image in hostel.hostelimage_set.all %}
+							<div class="carousel-item {% if forloop.first %}active{% endif %}">
+								<img src="{{image.image.url}}" class="w-100 d-block" alt="Slide {{forloop.counter}}">
+							</div>
+							{% endfor %}
+
+
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel"
+							data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel"
+							data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+					{% endif %}
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% if owner %}
+	<div class="col-md-6 row">
+		<div class="col-12 mb-2">
+			<div class="card bg-dark">
+				<div class="card-body">
+					<h5 class="card-title">Hostel Services</h5>
+
+					{% if hostel.services.all %}
+					<p class="card-text">
+						{% for service in hostel.services.all %}
+						<span class="badge bg-primary">{{service}}</span>
+						{% endfor %}
+					</p>
+					{% else %}
+					<p class="card-text">Select services below</p>
+					<form action="{% url 'add-services' hostel.id%}" method="post">
+						{% csrf_token %}
+						<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+							{% for service in services %}
+							<input type="checkbox" class="btn-check" id="btncheck{{service.id}}"
+								name="service{{service.id}}" autocomplete="off">
+							<label class="btn btn-outline-primary" for="btncheck{{service.id}}">{{service}}</label>
+							{% endfor %}
+
+						</div>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</form>
+					{% endif %}
+
+
+				</div>
+			</div>
+		</div>
+		<div class="col-12 mb-2">
+			<div class="card bg-dark">
+				<div class="card-body">
+					<h5 class="card-title">Hostel Rooms</h5>
+
+					{% if hostel.roomcategory_set.all %}
+					<p class="card-text">
+						{% for category in hostel.roomcategory_set.all %}
+						<span class="badge bg-primary">{{category}}</span>
+						{% endfor %}
+					</p>
+					<p class="card-text py-2">
+						<!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#roomTypemodal">
+							Add Room Type
+						</button>
+
+						<!-- Modal -->
+					<div class="modal fade" id="roomTypemodal" tabindex="-1" aria-labelledby="roomTypemodalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog        ">
+							<form method="post" action="{% url 'add-room' hostel.pk %}" class="modal-content text-dark">
+								{% csrf_token %}
+								<div class="modal-header">
+									<h5 class="modal-title" id="roomTypemodalLabel">Add Room</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									{{room_form}}
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					</p>
+
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<div class="col-md-6">
+		<div class="col-12 mb-2">
+			<div class="card bg-dark">
+				<div class="card-body">
+					<h5 class="card-title">Hostel Services</h5>
+					{% for service in hostel.services.all %}
+					<span class="badge bg-primary">{{service}}</span>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+		<div class="col-12 mb-2">
+			<div class="card bg-dark">
+				<div class="card-body">
+					<h5 class="card-title">Hostel Rooms</h5>
+
+					{% if hostel.roomcategory_set.all and not guest%}
+					<p class="card-text">
+						{% for category in hostel.roomcategory_set.all %}
+						<!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#room{{category.id}}">
+							<span class="badge bg-primary">{{category}}</span>
+						</button>
+
+						<!-- Modal -->
+					<div class="modal fade" id="room{{category.id}}" tabindex="-1"
+						aria-labelledby="room{{category.id}}Label" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered      ">
+							<div class="modal-content bg-dark">
+								<div class="modal-header">
+									<h5 class="modal-title" id="room{{category.id}}Label">Book {{category}} room</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="p-2">
+										<div class="container-fluid">
+											<div class="lead">
+												<div>
+													<span>Name : </span>{{category.name}}
+												</div>
+												<div>
+													<span>Description : </span>{{category.description}}
+												</div>
+												<div>
+													<span>Price : </span>{{category.price}}
+												</div>
+												<div>
+													<span>Rooms Left : </span>{{category.get_rooms_left}}
+												</div>
+											</div>
+
+											<div class="text-center">
+												<a href="{% url 'book-room' category.pk %}" class="btn btn-primary btn-lg" type="button">Book</a>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					</p>
+
+					{% endif %}
+					
+					{% if guest %}
+						
+						{% for guest_obj in guest %}
+							You have booked the room {{guest_obj.room.name}}
+						{% endfor %}
+							
+					{% endif %}
+						
+
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+</div>
+{% endblock main %}
+
+{% block contact %}
+<section class="text-center content-section" id="contact" style="height: 0">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+				<h2>Contact Host</h2>
+				<p class="text-light" style="padding: 10px 0">
+					For more information on the hostel kindly contact the owner
+					using method given below. Remember to keep things
+					professional.
+				</p>
+				<ul class="list-inline banner-social-buttons">
+					<li class="list-inline-item">&nbsp;</li>
+					<li class="list-inline-item">
+						&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button" style="width: 214px">
+							<i class="fa fa-whatsapp fa-fw"></i><span class="network-name">&nbsp;Whatsapp</span>
+						</button>
+					</li>
+					<li class="list-inline-item">&nbsp;</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock contact %}
