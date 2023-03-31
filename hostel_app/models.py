@@ -1,3 +1,5 @@
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -47,10 +49,23 @@ class RoomCategory(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    # This links each booking to the room that was booked.
     room = models.ForeignKey(RoomCategory, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
+
+    def save(self, *args, **kwargs):
+
+        # Send email to the user
+        subject = 'Booking confirmation'
+        from_email = 'from@example.com'
+        html_message = render_to_string('booking_confirmation_email.html', {
+            'room': self.room, 'user': self.user, 'start_date': self.start_date, 'end_date': self.end_date})
+        recipient_list = [self.user.email]
+        send_mail(subject, message=None, html_message=html_message,
+                  from_email=from_email, recipient_list=recipient_list)
+
+        return super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f" {self.user}has booked {self.room} from {self.start_date} to {self.end_date}"

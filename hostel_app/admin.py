@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Booking, Hostel, Location, Service, UserProfile, Review
+from .models import Booking, Hostel, Location, RoomCategory, Service, UserProfile, Review
 
 # Register your models here.
 
@@ -33,3 +33,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(RoomCategory)
+class RoomCategoryAdmin(admin.ModelAdmin):
+    list_display=('hostel',)

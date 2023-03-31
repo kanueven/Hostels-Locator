@@ -2,35 +2,66 @@
 
 {% block main %}
 <div class="py-5"></div>
-  <div class="row mx-0 justify-content-center">
-    <div class="col-12 text-center">
-      <h3>Booking form</h3>
-    </div>
-    <form action="{% url 'confirm-booking' pk %}" method="post" class="p-5 col-md-8">
-      {% csrf_token %}
-          
-      <div class="mb-3">
-        <label for="exampleInputText1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name= "email"aria-describedby="textHelp">
-      </div>
-     
-      <div class="mb-3">
-        <label for="exampleInputText1" class="form-label">Phone</label>
-        <input type="phone" class="form-control" id="phone" name= "phone" aria-describedby="textHelp">
-      </div>
+<div class="row mx-0 justify-content-center">
+	<div class="col-12 text-center">
+		<h3>Booking form</h3>
+	</div>
+	<form action="{% url 'confirm-booking' pk %}" method="post" class="p-5 col-md-8" id="bookingForm">
+		{% csrf_token %}
 
-      <div class="mb-3">
-        <label for="exampleInputText1" class="form-label">Check-in</label>
-        <input type="date" class="form-control" id="start_date" name="start_date" aria-describedby="textHelp">
-      </div>
-  
-      <div class="mb-3">
-        <label for="exampleInputText1" class="form-label">Check-out</label>
-        <input type="date" class="form-control" id="end_date" name= "end_date" aria-describedby="textHelp">
-      </div>
-    
-    
-      <input type="submit" value="Submit">
-    </form>
-  </div>
+		<div class="mb-3">
+			<label for="exampleInputText1" class="form-label">Email</label>
+			<input type="email" class="form-control" id="email" name="email" aria-describedby="textHelp">
+		</div>
+
+		<div class="mb-3">
+			<label for="exampleInputText1" class="form-label">Phone</label>
+			<input type="phone" class="form-control" id="phone" name="phone" aria-describedby="textHelp">
+		</div>
+
+		<div class="mb-3">
+			<label for="exampleInputText1" class="form-label">Check-in</label>
+			<input type="date" class="form-control" id="start_date" name="start_date" aria-describedby="textHelp">
+		</div>
+
+		<div class="mb-3">
+			<label for="exampleInputText1" class="form-label">Check-out</label>
+			<input type="date" class="form-control" id="end_date" name="end_date" aria-describedby="textHelp">
+		</div>
+
+
+		<input type="submit" value="Submit">
+	</form>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered      ">
+			<div class="modal-content text-dark">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Proceed with payment</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					{% include "payment.html" with category=category%}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	const bForm = document.getElementById('bookingForm')
+
+	bForm.addEventListener('submit', function (event) {
+		event.preventDefault(); // Prevent the form from submitting
+
+		// Show the modal
+		$('#exampleModal').modal('show');
+	});
+
+
+</script>
 {% endblock %}

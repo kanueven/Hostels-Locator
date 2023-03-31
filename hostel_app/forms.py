@@ -43,6 +43,13 @@ class HostelForm(forms.ModelForm):
 
 
 class UserForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name in self.fields:
+            field = self.fields[field_name]
+            field.widget.attrs['class'] = 'form-control'
+            
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email')

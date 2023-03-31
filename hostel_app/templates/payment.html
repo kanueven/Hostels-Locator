@@ -24,7 +24,7 @@
 				return actions.order.create({
 					purchase_units: [{
 						amount: {
-							value: '88.44'
+							value: '{{category.price}}'
 						}
 					}]
 				});
@@ -41,7 +41,7 @@
 					// element.innerHTML = '';
 					// element.innerHTML = '<h3>Thank you for your payment!</h3>';
 					// Or go to another URL:  actions.redirect('thank_you.html');
-					window.location.href = "{% url 'book-hostel' hostel.pk %}";
+					window.location.href = "{% url 'book-room' category.id %}?booked=true";
 				});
 			}
 

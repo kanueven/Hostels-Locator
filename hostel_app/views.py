@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -180,7 +181,14 @@ def profile(request):
 
 
 def book_room(request,pk):
-    return render(request,'book_room.html',{'pk':pk})
+    room = RoomCategory.objects.get(id=pk)
+    booked = request.GET.get('booked')
+    if booked:
+        booking = Booking.objects.create(user=request.user, room=room, start_date=datetime.today(
+        ).date(), end_date=datetime.today().date())
+        booking.save()
+        return redirect('hostel-detail',pk=room.hostel.id)
+    return render(request,'book_room.html',{'pk':pk,'category':room})
 
 @login_required(login_url='login')
 def confirm_booking(request,pk):
@@ -205,19 +213,22 @@ def registerView(request, role):
             new_user = form.save(commit=True)
             new_user = authenticate(username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'],)
-            
+
             if new_user is not None:
                 # Create userprofile
-                user_profile = UserProfile.objects.create(user = new_user,role=role)  
-                user_profile.save()          
+                user_profile = UserProfile.objects.create(
+                    user=new_user, role=role)
+                user_profile.save()
                 login(request, new_user)
 
             return redirect('hostel-home')
-        context['errors'] = 'Invalid form data'
-
-    context['form'] = UserForm()
+        else:
+            context['form'] = form
+    else:
+        context['form'] = UserForm()
 
     return render(request, 'register.html', context=context)
+
 
 
 def loginView(request, role):
