@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from hostel_app.forms import HostelImageForm, LoginForm, RoomCategoryForm, UserForm, HostelForm
-from .models import Booking, Hostel, Location, RoomCategory, UserProfile,Service
+from .models import Booking, Hostel, Location, RoomCategory, UserProfile, Service, User
 
 
 # create a view in Django that accepts location data via POST request and saves it to the database
@@ -110,8 +110,8 @@ def add_services(request,pk):
                 continue
             else:
                 id = k[-1]
-                service = Service.objects.get(id=id)
-                hostel.services.add(service)
+                services = Service.objects.get(id=id)
+                hostel.services.add(services)
         
         hostel.save()
                 
@@ -151,6 +151,13 @@ def add_hostelimages(request,pk):
 # one for displaying the details of a specific hostel and its rooms,
 # and one for displaying the details of a specific room and its bookings
 
+#manage guests
+
+def admin_report(request):
+    num_hostels = Hostel.objects.count()
+    num_guests = User.objects.count()
+    context = {'num_hostels': num_hostels, 'num_guests': num_guests}
+    return render(request, 'dashboard.html', context)
 
 @login_required(login_url='login')
 def dashboard(request):
@@ -167,6 +174,11 @@ def dashboard(request):
             return HttpResponseRedirect(reverse('hostel-detail', args=[str(hostel.id)]))
     else:
         form = HostelForm()
+        
+    num_guests = User.objects.count()
+    num_hostels = Hostel.objects.count()
+    context = {'num_guests': num_guests, 'num_hostels': num_hostels}
+ 
 
     context['locations'] = Location.objects.all()
     context['hostels'] = Hostel.objects.filter(
